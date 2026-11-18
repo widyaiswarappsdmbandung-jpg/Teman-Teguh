@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teman Teguh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#0b3fd1;--bg2:#1f7bff;--bg3:#073099;--lime:#c6f432;--ink:#12204a;--card:#fff;--muted:#5b6a94;--coral:#ff5d6c;--amber:#ffb020;--mint:#18c08a;--violet:#8b5cf6;--sky:#3b82f6;--field:#f1f5ff;--line:#d8e1ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#14214d;--ink:#eef2ff;--muted:#a9b6e6;--field:#0e1a42;--line:#2b3b78}}
+:root[data-theme="dark"]{--card:#14214d;--ink:#eef2ff;--muted:#a9b6e6;--field:#0e1a42;--line:#2b3b78}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+
+body{margin:0;min-height:100vh;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;background:radial-gradient(900px 600px at 78% 45%,#e9f8ff,transparent 62%),linear-gradient(160deg,#a9e4ff 0%,#6cc6ff 45%,#4aa8ff 100%);background-color:#6cc6ff;overflow-x:hidden;position:relative}
+.bub{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 26%,#fffbe3 0,#ffe98a 13%,#ffc928 40%,#e29c00 72%,#9c6300 100%);box-shadow:inset -10px -14px 26px rgba(120,70,0,.5),inset 8px 10px 18px rgba(255,255,255,.6),0 22px 34px rgba(20,70,160,.28);animation:fl var(--d,12s) ease-in-out infinite alternate}
+.bub::after{content:"";position:absolute;left:20%;top:13%;width:30%;height:19%;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(2px);transform:rotate(-30deg)}
+.b1{width:150px;height:150px;left:-40px;top:14%;--d:13s;--x:30px}
+.b2{width:74px;height:74px;left:40%;top:8%;--d:9s;--x:-20px}
+.b3{width:230px;height:230px;right:-70px;top:-60px;--d:16s;--x:-26px}
+.b4{width:120px;height:120px;right:7%;bottom:12%;--d:11s;--x:24px}
+.b5{width:52px;height:52px;left:9%;bottom:20%;--d:8s;--x:18px}
+.b6{width:96px;height:96px;left:46%;bottom:4%;--d:14s;--x:-30px}
+@keyframes fl{0%{transform:translate(0,0)}100%{transform:translate(var(--x,20px),-46px)}}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:34px 28px 24px;min-height:100vh;display:grid;grid-template-columns:1.08fr 1fr;grid-template-rows:1fr auto;gap:24px 28px;align-items:center}
+.left{display:flex;flex-direction:column;gap:22px}
+.hi{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(2.1rem,4.3vw,3.6rem);line-height:1.12;margin:0;color:#0a2a7a;text-shadow:0 3px 0 rgba(255,255,255,.75),0 10px 26px rgba(10,60,160,.25)}
+.nb{white-space:nowrap}
+.lg{display:inline-block;vertical-align:middle;margin-left:14px;padding:3px;border-radius:24px;background:linear-gradient(135deg,#fff1b0,#f7b500 55%,#ffe27a);box-shadow:0 14px 30px rgba(180,110,0,.35),0 0 0 6px rgba(255,255,255,.45);transform:rotate(-3deg);animation:sway 5s ease-in-out infinite alternate}
+.lg img{display:block;width:clamp(120px,13vw,172px);border-radius:21px}
+@keyframes sway{to{transform:rotate(2.5deg) translateY(-4px)}}
+.id{position:relative;display:flex;gap:18px;align-items:center;padding:20px 30px 20px 20px;max-width:640px;border-radius:46px 18px 46px 18px;overflow:hidden;background:radial-gradient(260px 150px at 0% 0%,rgba(255,214,90,.38),transparent 70%),linear-gradient(135deg,#0f43dc,#0a2a8f 60%,#071d6b);box-shadow:0 24px 46px rgba(8,40,150,.42),inset 0 1px 0 rgba(255,255,255,.4),inset 0 0 0 1.5px rgba(255,214,90,.6)}
+.id::before{content:"";position:absolute;top:0;left:-60%;width:38%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-20deg);animation:shine 7s ease-in-out infinite}
+@keyframes shine{0%,70%{left:-60%}100%{left:135%}}
+.id>div:last-child{position:relative}
+.ava{position:relative;flex:none;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#fff0a8,#f2a900,#fff0a8,#f2a900,#fff0a8);box-shadow:0 8px 18px rgba(0,0,40,.4)}
+.ava::after{content:"";position:absolute;inset:5px;border-radius:50%;background:linear-gradient(145deg,#3b86ff,#0a2a8f)}
+.ava svg{position:relative;z-index:1;width:34px;fill:#ffd24a}
+.id b{display:block;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.2rem,2.3vw,1.62rem);line-height:1.15;color:#fff;text-shadow:0 2px 8px rgba(0,0,40,.45)}
+.id span{display:block;margin-top:10px;padding-top:10px;background:linear-gradient(90deg,#ffc928,rgba(255,201,40,0)) top/100% 2px no-repeat;font-weight:700;font-size:clamp(.84rem,1.4vw,.98rem);color:#ffe9a8;line-height:1.35}
+.tag{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.t1{margin:0;padding-left:16px;border-left:6px solid #ffc928;border-radius:3px;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.3vw,1.7rem);line-height:1.25;color:#0a2a7a}
+.t1 span{display:block}
+.t2{margin:0;display:inline-flex;align-items:center;gap:10px;padding:10px 20px 10px 14px;border-radius:99px;font-weight:800;font-size:clamp(.88rem,1.5vw,1.02rem);color:#5a3500;background:linear-gradient(135deg,#fff0a8,#ffc928 60%,#f2a900);box-shadow:0 10px 22px rgba(190,120,0,.35),inset 0 2px 0 rgba(255,255,255,.7)}
+.t2 svg{width:20px;fill:#fff;stroke:#a65f00;stroke-width:1.2;stroke-linejoin:round}
+.foot{grid-column:1/-1;display:flex;justify-content:flex-end;align-items:center;gap:18px;align-self:end}
+.cp{display:flex;flex-direction:column;gap:2px;text-align:right;padding:12px 20px;border-radius:20px;background:rgba(255,255,255,.55);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.9);box-shadow:0 10px 26px rgba(20,70,170,.18);font-weight:700;font-size:.88rem;color:#0a2a7a}
+.cp span:last-child{font-weight:800;color:#a65f00}
+.logo2{width:clamp(150px,18vw,240px);border-radius:16px;box-shadow:0 12px 28px rgba(20,70,170,.3)}
+.hub{position:relative;width:min(600px,100%);aspect-ratio:1;margin:0 auto}
+.orbit{position:absolute;inset:7%;border-radius:50%;border:2px dashed rgba(255,255,255,.85);animation:spin 60s linear infinite}
+.orbit2{position:absolute;inset:20%;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.node{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2%;border-radius:50%;background:linear-gradient(160deg,#fff,#eef3ff);border:0;cursor:pointer;font:inherit;text-decoration:none;color:var(--c);box-shadow:0 0 0 7px color-mix(in srgb,var(--c) 55%,transparent),0 22px 44px rgba(3,20,90,.4);transition:transform .25s cubic-bezier(.3,1.5,.5,1),box-shadow .25s}
+.node:hover,.node:focus-visible{transform:scale(1.09);box-shadow:0 0 0 10px color-mix(in srgb,var(--c) 70%,transparent),0 28px 56px rgba(3,20,90,.5);outline:none}
+.node:focus-visible{outline:3px solid #fff;outline-offset:6px}
+.node svg{width:36%;height:auto;stroke:var(--c);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.node em{font-style:normal;font-family:'Baloo 2',sans-serif;font-weight:800;line-height:1;text-align:center;font-size:clamp(.78rem,2.3vw,1.2rem)}
+.n-masuk{--c:var(--coral);width:27%;height:27%;left:36.5%;top:0}
+.n-pustaka{--c:var(--amber);width:27%;height:27%;left:1%;top:36.5%}
+.n-latih{--c:var(--mint);width:27%;height:27%;right:1%;top:36.5%}
+.n-testi{--c:var(--violet);width:27%;height:27%;left:36.5%;bottom:0}
+.n-profil{--c:var(--sky);width:44%;height:44%;left:28%;top:28%;box-shadow:0 0 0 10px rgba(255,255,255,.28),0 0 0 22px rgba(255,255,255,.12),0 30px 60px rgba(3,20,90,.45)}
+.n-profil svg{width:30%;stroke:none;fill:var(--sky)}
+.n-profil em{font-size:clamp(1.2rem,4.4vw,2.2rem);color:#2c4fd8}
+.n-masuk::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid var(--coral);animation:ping 2.4s ease-out infinite}
+@keyframes ping{from{transform:scale(1);opacity:.9}to{transform:scale(1.4);opacity:0}}
+.ov{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,16,70,.6);backdrop-filter:blur(6px)}
+.ov.on{display:flex}
+.modal{width:min(420px,100%);background:var(--card);color:var(--ink);border-radius:28px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(0,0,0,.45);position:relative;animation:pop .35s cubic-bezier(.3,1.4,.5,1)}
+@keyframes pop{from{transform:translateY(24px) scale(.94);opacity:0}}
+.modal .top{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--coral),var(--amber),var(--mint),var(--sky),var(--violet));margin:-10px 0 20px}
+.modal h2{font-family:'Baloo 2',sans-serif;font-size:1.9rem;margin:0 0 14px}
+.fld{position:relative;margin-bottom:12px}
+.fld svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fld input{width:100%;padding:14px 14px 14px 44px;border-radius:16px;border:2px solid var(--line);background:var(--field);color:var(--ink);font:700 1rem 'Nunito',sans-serif}
+.fld input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 4px rgba(59,130,246,.2)}
+.go{width:100%;border:0;border-radius:16px;padding:14px;font:800 1.1rem 'Baloo 2',sans-serif;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);box-shadow:0 10px 24px rgba(255,93,108,.45);transition:transform .15s}
+.go:active{transform:scale(.98)}.go[disabled]{opacity:.7;cursor:wait}
+.msg{min-height:20px;margin:10px 0 0;font-weight:700;font-size:.9rem;color:#e11d2e}
+.x{position:absolute;right:14px;top:22px;width:36px;height:36px;border-radius:50%;border:0;background:var(--field);color:var(--ink);font-size:1.3rem;cursor:pointer}
+@media (max-width:900px){
+.wrap{grid-template-columns:1fr;grid-template-rows:auto;padding:26px 18px 22px}
+.hub{width:min(460px,100%)}
+.foot{flex-direction:column-reverse;align-items:center;justify-content:center;gap:12px}
+.cp{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.go.load::after{content:"";display:inline-block;width:14px;height:14px;margin-left:10px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:50%;background:transparent;cursor:pointer;display:grid;place-items:center}
+.eye svg{position:static;transform:none;width:20px}
+.fld input.pw{padding-right:48px}
+</style>
+</head>
+<body>
+<i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i><i class="bub b4"></i><i class="bub b5"></i><i class="bub b6"></i>
+<main class="wrap">
+  <section class="left">
+    <h1 class="hi"><span class="nb">Annyeong Haseyo</span> <span class="nb">Teman Teguh<span class="lg"><img alt="Logo Teman Teguh" src="logo-teman-teguh.jpg"></span></span></h1>
+    <div class="id"><div class="ava"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V16h2V9z"/><path d="M5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8z"/></svg></div><div><b>Teguh Solih Setiyo Wibowo, S.Pd., MPA.</b><span>Widyaiswara Ahli Madya BBPKAPDN II Kemendagri Bandung</span></div></div>
+    <div class="tag">
+      <p class="t1"><span>Teman Teguh,</span><span>Terus Menebar Manfaat,</span><span>Terus Bergerak dan Bertumbuh</span></p>
+      <p class="t2"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.6L21 11l-6.600 2.400L12 20l-2.400-6.600L3 11l6.600-2.400z"/></svg>Spot Asyik bagi Pengembangan Kompetensi ASN</p>
+    </div>
+  </section>
+  <section class="hub" aria-label="Menu utama">
+    <div class="orbit"></div><div class="orbit2"></div>
+    <button class="node n-masuk" id="btnMasuk" type="button">
+      <svg viewBox="0 0 24 24"><path d="M15 3h3a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-3"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg><em>MASUK</em></button>
+    <a class="node n-pustaka" href="#pustaka">
+      <svg viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4H9a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3.5A1.5 1.5 0 0 1 2 16.5z"/><path d="M22 5.5A1.5 1.5 0 0 0 20.5 4H15a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h6.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg><em>Pustaka<br>TEGUH</em></a>
+    <a class="node n-latih" href="#pelatihan">
+      <svg viewBox="0 0 24 24"><path d="M3 11a7 6 0 0 1 14 0 7 6 0 0 1-14 0z"/><path d="M6 16l-2 4 5-2.5"/><path d="M17 8.5A6 5 0 0 1 21 13a6 5 0 0 1-3 4.4l1.5 3.1-4-2"/></svg><em>PELATIHAN</em></a>
+    <a class="node n-testi" href="#testimoni">
+      <svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="4"/><path d="M12 4v4"/><circle cx="12" cy="3.5" r="1"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/><path d="M2 13v3M22 13v3"/></svg><em>Testimoni</em></a>
+    <a class="node n-profil" href="#profil">
+      <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V16h2V9z"/><path d="M5 13.2V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.8l-7 3.8z"/></svg><em>PROFIL</em></a>
+  </section>
+  <footer class="foot">
+    <div class="cp"><span>© 2018 Teman Teguh. Seluruh Hak Dilindungi.</span><span>Bersama TEGUH, Mari Terus Bergerak dan Bertumbuh</span></div>
+    <img class="logo2" alt="Teguh Widyaiswara Nusantara" src="logo-teguh.jpg">
+  </footer>
+</main>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ttl">
+  <form class="modal" id="frm" autocomplete="on" novalidate>
+    <div class="top"></div>
+    <button class="x" type="button" id="tutup" aria-label="Tutup">×</button>
+    <h2 id="ttl">Masuk</h2>
+    <div class="fld"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input id="u" name="username" placeholder="Email / NIP" autocomplete="username" maxlength="120" required></div>
+    <div class="fld"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input class="pw" id="p" name="password" type="password" placeholder="Kata sandi" autocomplete="current-password" maxlength="100" required>
+      <button class="eye" type="button" id="eye" aria-label="Tampilkan kata sandi"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    <button class="go" id="go" type="submit">Masuk</button>
+    <p class="msg" id="msg" role="alert"></p>
+  </form>
+
+  <form class="modal" id="frm2" autocomplete="off" novalidate hidden>
+    <div class="top"></div>
+    <h2>Ganti Password</h2>
+    <div class="fld"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="p1" type="password" placeholder="Kata sandi baru" autocomplete="new-password" maxlength="100" required></div>
+    <div class="fld"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="p2" type="password" placeholder="Ulangi kata sandi baru" autocomplete="new-password" maxlength="100" required></div>
+    <button class="go" id="go2" type="submit">Simpan</button>
+    <p class="msg" id="msg2" role="alert"></p>
+  </form>
+</div>
+
+<script>
+/* ===== PENGATURAN: isi dengan URL Web App Apps Script (berakhiran /exec) ===== */
+var API_URL = "https://script.google.com/macros/s/AKfycbzoO5-lSI13Y3p64vKv3oGVSgkmFKnISkWk5uqnEN_n3TIQ83UxEGMGDOSB9vmhJ1pF/exec";
+var HALAMAN_APP = "dashboard.html"; // halaman tujuan setelah login (dibuat di Tahap 3)
+
+var $ = function (id) { return document.getElementById(id); };
+var ov = $('ov'), frm = $('frm'), frm2 = $('frm2');
+var tokenSementara = null, passwordLamaSementara = '';
+
+function simpan(k, v) { try { sessionStorage.setItem(k, v); } catch (_) {} }
+function ambil(k) { try { return sessionStorage.getItem(k); } catch (_) { return null; } }
+function apiSiap() { return API_URL && API_URL.indexOf('ISI_ID_DEPLOYMENT') < 0; }
+
+async function api(action, data, token) {
+  var ctl = new AbortController(), t = setTimeout(function () { ctl.abort(); }, 30000);
+  try {
+    var r = await fetch(API_URL, {
+      method: 'POST', signal: ctl.signal,
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },   // text/plain agar tidak kena preflight CORS
+      body: JSON.stringify({ action: action, token: token || undefined, data: data || {} })
+    });
+    var txt = await r.text();
+    try { return JSON.parse(txt); } catch (_) { throw new Error('FORMAT'); }
+  } finally { clearTimeout(t); }
+}
+
+function buka() { ov.classList.add('on'); setTimeout(function () { $('u').focus(); }, 60); }
+function tutup() {
+  if (!frm2.hidden) return;                 // ganti password wajib diselesaikan
+  ov.classList.remove('on'); $('msg').textContent = '';
+}
+function muat(btn, on) { btn.disabled = on; btn.classList.toggle('load', on); btn.setAttribute('aria-busy', on); }
+function keApp() { location.href = HALAMAN_APP; }
+
+$('btnMasuk').onclick = buka;
+$('tutup').onclick = tutup;
+ov.addEventListener('click', function (e) { if (e.target === ov) tutup(); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') tutup(); });
+$('eye').onclick = function () {
+  var f = $('p'), tampil = f.type === 'password';
+  f.type = tampil ? 'text' : 'password';
+  this.setAttribute('aria-label', tampil ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+};
+
+frm.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var u = $('u').value.trim(), pw = $('p').value, msg = $('msg'), go = $('go');
+  if (!u || !pw) { msg.textContent = 'Lengkapi email/NIP dan kata sandi.'; return; }
+  if (!apiSiap()) { msg.textContent = 'Alamat API belum diisi pada variabel API_URL.'; return; }
+  muat(go, true); msg.textContent = '';
+  try {
+    var j = await api('login', { username: u, password: pw, perangkat: navigator.userAgent.slice(0, 100) });
+    if (!j.success) { msg.textContent = j.message || 'Login gagal.'; }
+    else {
+      simpan('tt_token', j.data.token);
+      simpan('tt_api', API_URL);
+      simpan('tt_user', JSON.stringify(j.data.user));
+      simpan('tt_exp', j.data.kedaluwarsa);
+      if (j.data.wajibGantiPassword) {
+        tokenSementara = j.data.token; passwordLamaSementara = pw;
+        frm.hidden = true; frm2.hidden = false; $('p1').focus();
+      } else { keApp(); return; }
+    }
+  } catch (err) {
+    msg.textContent = err.message === 'FORMAT'
+      ? 'Respons server tidak valid. Pastikan Web App diatur "Anyone" dan URL berakhiran /exec.'
+      : 'Tidak dapat terhubung ke server. Periksa koneksi lalu coba lagi.';
+  }
+  muat(go, false);
+});
+
+frm2.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var a = $('p1').value, b = $('p2').value, msg = $('msg2'), go = $('go2');
+  if (a.length < 8 || !/[A-Za-z]/.test(a) || !/\d/.test(a)) { msg.textContent = 'Minimal 8 karakter, mengandung huruf dan angka.'; return; }
+  if (a !== b) { msg.textContent = 'Kata sandi tidak sama.'; return; }
+  muat(go, true); msg.textContent = '';
+  try {
+    var j = await api('gantiPassword', { passwordLama: passwordLamaSementara, passwordBaru: a }, tokenSementara);
+    if (!j.success) { msg.textContent = j.message || 'Gagal menyimpan.'; }
+    else { passwordLamaSementara = ''; keApp(); return; }
+  } catch (err) {
+    msg.textContent = 'Tidak dapat terhubung ke server. Coba lagi.';
+  }
+  muat(go, false);
+});
+
+// Jika sesi masih aktif, langsung masuk
+(async function () {
+  var t = ambil('tt_token');
+  if (!t || !apiSiap()) return;
+  try {
+    var j = await api('cekSesi', {}, t);
+    if (j.success && !j.data.wajibGantiPassword) keApp();
+  } catch (_) {}
+})();
+</script>
+</body>
+</html>

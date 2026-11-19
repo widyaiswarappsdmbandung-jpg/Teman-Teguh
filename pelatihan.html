@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teman Teguh - Pelatihan</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height:100vh;background:radial-gradient(900px 600px at 80% 20%,#e9f8ff,transparent 60%),linear-gradient(160deg,#a9e4ff,#6cc6ff 55%,#4aa8ff);background-attachment:fixed}
+.bub{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 26%,#fffbe3 0,#ffe98a 13%,#ffc928 40%,#e29c00 72%,#9c6300 100%);box-shadow:inset -8px -12px 22px rgba(120,70,0,.5),inset 6px 8px 14px rgba(255,255,255,.6),0 18px 28px rgba(20,70,160,.25);animation:fl var(--d,12s) ease-in-out infinite alternate}
+.b1{width:110px;height:110px;left:-30px;top:30%;--d:13s}.b2{width:70px;height:70px;right:3%;top:8%;--d:9s}.b3{width:150px;height:150px;right:-50px;bottom:6%;--d:15s}
+@keyframes fl{to{transform:translateY(-40px)}}
+.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1280px;margin:0 auto;padding:16px 20px 0}
+.back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.15rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
+.back img{height:38px;border-radius:10px}
+h1{margin:0;font:800 clamp(1.8rem,4vw,2.8rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:16px 20px 36px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.st{background:#fff;border-radius:18px;padding:10px 16px;box-shadow:0 10px 24px rgba(20,70,170,.16);border-left:6px solid var(--c)}
+.st b{display:block;font:800 1.9rem/1.1 'Baloo 2',sans-serif;color:var(--c)}
+.st span{font-weight:800;font-size:.86rem;color:#3d4f86}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+select,input,button{font:700 .95rem 'Nunito',sans-serif;color:#0a2a7a;border:2px solid #cfe2ff;border-radius:14px;padding:10px 14px;background:#fff}
+input{flex:1;min-width:180px}
+button{border:0;color:#fff;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);cursor:pointer;box-shadow:0 8px 18px rgba(255,93,108,.35)}
+.main{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);gap:16px;align-items:stretch}
+.card{background:#fff;border-radius:26px;box-shadow:0 18px 40px rgba(20,70,170,.22);overflow:hidden;position:relative}
+#peta{height:min(72vh,680px);min-height:420px;background:linear-gradient(180deg,#c4ecff,#8fd3ff)}
+.leaflet-container{font-family:'Nunito',sans-serif}
+.legend{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(255,255,255,.92);border-radius:14px;padding:8px 12px;font-size:.78rem;font-weight:800;box-shadow:0 6px 16px rgba(20,70,170,.2)}
+.legend div{display:flex;align-items:center;gap:6px;margin-top:3px}.legend i{width:16px;height:12px;border-radius:3px;border:1px solid rgba(10,42,122,.25)}
+.panel{display:flex;flex-direction:column;max-height:min(72vh,680px);min-height:420px}
+.ph{padding:16px 18px 10px;border-bottom:2px solid #eef4ff}
+.crumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:800;font-size:.9rem}
+.crumb a{color:#2c5ad8;cursor:pointer;text-decoration:none}.crumb a:hover{text-decoration:underline}
+.ph h2{margin:6px 0 0;font:800 1.5rem 'Baloo 2',sans-serif}
+.ph p{margin:2px 0 0;font-weight:700;color:#3d4f86;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{border:0;box-shadow:none;border-radius:99px;padding:5px 11px;font-size:.8rem;background:#eaf3ff;color:#0a2a7a;cursor:pointer}
+.chip.on{background:#0a2a8f;color:#fff}.chip.nol{opacity:.55}
+.list{overflow:auto;padding:10px 14px 16px;flex:1}
+.al{background:#f5f9ff;border-radius:16px;padding:10px 14px;margin-bottom:8px;border-left:5px solid #ffc928}
+.al b{display:block;font:800 1.05rem 'Baloo 2',sans-serif}
+.al p{margin:1px 0;font-size:.86rem;color:#3d4f86;font-weight:700}
+.tag{display:inline-block;margin-left:6px;background:linear-gradient(135deg,#fff0a8,#ffc928);color:#5a3500;border-radius:99px;padding:1px 9px;font-size:.7rem;font-weight:800;vertical-align:2px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#f5f9ff;border-radius:14px;padding:8px 14px;margin-bottom:6px;font-weight:800;cursor:pointer}
+.row em{font-style:normal;background:#ffc928;color:#5a3500;border-radius:99px;padding:1px 10px;font-size:.85rem}
+.msg{padding:18px;font-weight:800;color:#a65f00}
+.foot{margin-top:14px;font-size:.78rem;font-weight:700;color:#24407f;opacity:.85}
+@media (max-width:900px){.main{grid-template-columns:1fr}#peta{height:56vh}.panel{max-height:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i>
+<div class="top">
+  <a class="back" href="index.html"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a>
+  <h1>PELATIHAN</h1>
+</div>
+<div class="wrap">
+  <section class="stats">
+    <div class="st" style="--c:#ff5d6c"><b id="sAl">-</b><span>Alumni</span></div>
+    <div class="st" style="--c:#18c08a"><b id="sPr">-</b><span>Provinsi</span></div>
+    <div class="st" style="--c:#3b82f6"><b id="sKb">-</b><span>Kabupaten/Kota</span></div>
+    <div class="st" style="--c:#ffb020" id="stCt" hidden><b id="sCt">-</b><span>Data contoh</span></div>
+  </section>
+  <section class="bar">
+    <select id="fProg" aria-label="Program"><option value="">Semua Program</option></select>
+    <input id="fQ" type="search" placeholder="Cari nama alumni" maxlength="60">
+    <button id="bReset" type="button">Kembali ke Indonesia</button>
+  </section>
+  <section class="main">
+    <div class="card"><div id="peta" role="application" aria-label="Peta alumni"></div>
+      <div class="legend" id="leg"></div></div>
+    <aside class="card panel">
+      <div class="ph"><div class="crumb" id="crumb"></div><h2 id="pJ"></h2><p id="pS"></p><div class="chips" id="chips"></div></div>
+      <div class="list" id="list"></div>
+    </aside>
+  </section>
+  <p class="foot">Batas wilayah: ghapsara/indonesia-atlas (data diva-gis dan gispedia, disederhanakan). Peta bersifat ilustratif.</p>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+var API_URL = (window.TT_CONFIG && TT_CONFIG.API_URL) || '';
+var $ = function (id) { return document.getElementById(id); };
+function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
+function apiSiap() { return API_URL && API_URL.indexOf('ISI_ID_DEPLOYMENT') < 0; }
+async function api(action, data) {
+  var r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ action: action, data: data || {} }) });
+  var j = JSON.parse(await r.text());
+  if (!j.success) throw new Error(j.message || 'Gagal');
+  return j.data;
+}
+
+var ringkas = { total: 0, contoh: 0, prov: {}, kab: {}, program: [] };
+var S = { prov: null, kab: null, program: '', q: '' };
+var provData = null, kabData = null, provNama = {}, provLayers = {}, kabLayers = {}, kabLayer = null, kabMuat = null;
+var INDO = [[-11.3, 94.6], [6.3, 141.3]];
+var map = L.map('peta', { zoomSnap: 0.25, minZoom: 3.5, maxBounds: [[-15, 90], [10, 146]], maxBoundsViscosity: 0.7 });
+map.fitBounds(INDO);
+map.attributionControl.setPrefix(false);
+
+function warna(n) { return n >= 20 ? '#c96a00' : n >= 11 ? '#f28c00' : n >= 6 ? '#ffb020' : n >= 3 ? '#ffd24a' : n >= 1 ? '#ffe9a8' : '#f2faff'; }
+function legenda() {
+  var d = $('leg'); d.textContent = '';
+  d.appendChild(el('span', '', 'Jumlah alumni'));
+  [['0', '#f2faff'], ['1-2', '#ffe9a8'], ['3-5', '#ffd24a'], ['6-10', '#ffb020'], ['11-19', '#f28c00'], ['20+', '#c96a00']].forEach(function (x) {
+    var r = el('div'); var i = el('i'); i.style.background = x[1]; r.appendChild(i); r.appendChild(el('span', '', x[0])); d.appendChild(r);
+  });
+}
+
+function stProv(f) {
+  var n = ringkas.prov[f.properties.k] || 0, pilih = S.prov === f.properties.k, redup = S.prov && !pilih;
+  return { fillColor: warna(n), fillOpacity: pilih ? 0.12 : redup ? 0.45 : 0.95, color: pilih ? '#0a2a7a' : '#ffffff', weight: pilih ? 2.2 : 1.1 };
+}
+function stKab(f) {
+  var n = ringkas.kab[f.properties.k] || 0, pilih = S.kab === f.properties.k;
+  return { fillColor: warna(n), fillOpacity: 0.95, color: pilih ? '#0a2a7a' : '#ffffff', weight: pilih ? 3 : 1 };
+}
+function segarkanGaya() {
+  Object.keys(provLayers).forEach(function (k) { provLayers[k].setStyle(stProv(provLayers[k].feature)); });
+  Object.keys(kabLayers).forEach(function (k) { kabLayers[k].setStyle(stKab(kabLayers[k].feature)); });
+}
+
+function pasangEvent(layer, nama, hitung, klik) {
+  layer.bindTooltip(nama, { sticky: true });
+  layer.on('mouseover', function () { layer.setStyle({ weight: 3, color: '#0a2a7a' }); layer.bringToFront(); layer.setTooltipContent(nama + ' - ' + hitung() + ' alumni'); });
+  layer.on('mouseout', function () { segarkanGaya(); });
+  layer.on('click', klik);
+}
+
+function gambarProv() {
+  L.geoJSON(provData, { style: stProv, onEachFeature: function (f, layer) {
+    provLayers[f.properties.k] = layer; provNama[f.properties.k] = f.properties.n;
+    pasangEvent(layer, f.properties.n, function () { return ringkas.prov[f.properties.k] || 0; }, function () { pilihProv(f.properties.k); });
+  } }).addTo(map);
+}
+
+async function muatKab() {
+  if (kabData) return;
+  if (!kabMuat) kabMuat = fetch('peta-kabkota.json').then(function (r) { return r.json(); }).then(function (d) { kabData = d; });
+  await kabMuat;
+}
+
+async function pilihProv(kode) {
+  S.prov = kode; S.kab = null; S.q = ''; $('fQ').value = '';
+  if (kabLayer) { map.removeLayer(kabLayer); kabLayer = null; kabLayers = {}; }
+  segarkanGaya();
+  if (provLayers[kode]) map.fitBounds(provLayers[kode].getBounds(), { padding: [24, 24], maxZoom: 9 });
+  try { await muatKab(); } catch (e) { $('list').textContent = 'Gagal memuat peta kabupaten/kota.'; return; }
+  if (S.prov !== kode) return;
+  var fs = kabData.features.filter(function (f) { return f.properties.p === kode; });
+  kabLayer = L.geoJSON({ type: 'FeatureCollection', features: fs }, { style: stKab, onEachFeature: function (f, layer) {
+    kabLayers[f.properties.k] = layer;
+    pasangEvent(layer, f.properties.n, function () { return ringkas.kab[f.properties.k] || 0; }, function () { pilihKab(f.properties.k); });
+  } }).addTo(map);
+  segarkanPanel();
+}
+
+function pilihKab(kode) {
+  S.kab = kode; segarkanGaya();
+  if (kabLayers[kode]) map.fitBounds(kabLayers[kode].getBounds(), { padding: [30, 30], maxZoom: 10 });
+  segarkanPanel();
+}
+
+function reset() {
+  S.prov = null; S.kab = null; S.q = ''; $('fQ').value = '';
+  if (kabLayer) { map.removeLayer(kabLayer); kabLayer = null; kabLayers = {}; }
+  segarkanGaya(); map.fitBounds(INDO); segarkanPanel();
+}
+
+function namaKab(kode) {
+  if (!kabData) return kode;
+  for (var i = 0; i < kabData.features.length; i++) if (kabData.features[i].properties.k === kode) return kabData.features[i].properties.n;
+  return kode;
+}
+
+function crumb() {
+  var c = $('crumb'); c.textContent = '';
+  var a = el('a', '', 'Indonesia'); a.onclick = reset; c.appendChild(a);
+  if (S.prov) {
+    c.appendChild(el('span', '', '›'));
+    if (S.kab) { var b = el('a', '', provNama[S.prov]); b.onclick = function () { pilihProv(S.prov); }; c.appendChild(b); c.appendChild(el('span', '', '›')); c.appendChild(el('span', '', namaKab(S.kab))); }
+    else c.appendChild(el('span', '', provNama[S.prov]));
+  }
+}
+
+function chipKab() {
+  var w = $('chips'); w.textContent = '';
+  if (!S.prov || !kabData) return;
+  kabData.features.filter(function (f) { return f.properties.p === S.prov; })
+    .sort(function (a, b) { return (ringkas.kab[b.properties.k] || 0) - (ringkas.kab[a.properties.k] || 0); })
+    .forEach(function (f) {
+      var n = ringkas.kab[f.properties.k] || 0, b = el('button', 'chip' + (S.kab === f.properties.k ? ' on' : '') + (n ? '' : ' nol'), f.properties.n + ' (' + n + ')');
+      b.type = 'button'; b.onclick = function () { pilihKab(f.properties.k); }; w.appendChild(b);
+    });
+}
+
+function kartu(a, tampilWilayah) {
+  var d = el('div', 'al'), b = el('b', '', a.Nama);
+  if (a.Contoh) b.appendChild(el('span', 'tag', 'CONTOH'));
+  d.appendChild(b); d.appendChild(el('p', '', a.Instansi));
+  d.appendChild(el('p', '', a.Program + ' · Angkatan ' + a.Angkatan + ' · ' + a.Tahun));
+  if (tampilWilayah) d.appendChild(el('p', '', a.Wilayah));
+  return d;
+}
+
+var token = 0;
+async function segarkanPanel() {
+  var my = ++token, list = $('list'), kode = S.kab || S.prov || '';
+  crumb(); chipKab();
+  $('pJ').textContent = S.kab ? namaKab(S.kab) : S.prov ? provNama[S.prov] : 'Alumni di seluruh Indonesia';
+  list.textContent = ''; list.appendChild(el('div', 'msg', 'Memuat...'));
+  if (!kode && !S.q) {
+    $('pS').textContent = 'Klik wilayah pada peta, atau pilih dari daftar ini.';
+    list.textContent = '';
+    Object.keys(ringkas.prov).sort(function (a, b) { return ringkas.prov[b] - ringkas.prov[a]; }).slice(0, 12).forEach(function (k) {
+      var r = el('div', 'row'); r.appendChild(el('span', '', provNama[k] || k)); r.appendChild(el('em', '', String(ringkas.prov[k])));
+      r.onclick = function () { pilihProv(k); }; list.appendChild(r);
+    });
+    if (!Object.keys(ringkas.prov).length) list.appendChild(el('div', 'msg', 'Belum ada data alumni yang ditampilkan.'));
+    return;
+  }
+  try {
+    var d = await api('petaAlumni', { kode: kode, program: S.program, q: S.q });
+    if (my !== token) return;
+    $('pS').textContent = d.total + ' alumni' + (d.total > d.items.length ? ' (menampilkan ' + d.items.length + ' pertama)' : '');
+    list.textContent = '';
+    d.items.forEach(function (a) { list.appendChild(kartu(a, !S.kab)); });
+    if (!d.items.length) list.appendChild(el('div', 'msg', 'Belum ada alumni pada pilihan ini.'));
+  } catch (e) { if (my === token) { list.textContent = ''; list.appendChild(el('div', 'msg', 'Gagal memuat data alumni.')); } }
+}
+
+function isiStat() {
+  $('sAl').textContent = ringkas.total; $('sPr').textContent = Object.keys(ringkas.prov).length; $('sKb').textContent = Object.keys(ringkas.kab).length;
+  $('stCt').hidden = !ringkas.contoh; $('sCt').textContent = ringkas.contoh;
+}
+
+async function muatRingkas() {
+  ringkas = await api('petaRingkasan', { program: S.program });
+  var sel = $('fProg');
+  if (sel.options.length === 1) ringkas.program.forEach(function (p) { var o = el('option', '', p); o.value = p; sel.appendChild(o); });
+  isiStat(); segarkanGaya();
+}
+
+var tmr;
+$('fQ').addEventListener('input', function () { clearTimeout(tmr); var v = this.value.trim(); tmr = setTimeout(function () { S.q = v; segarkanPanel(); }, 350); });
+$('fProg').addEventListener('change', async function () { S.program = this.value; try { await muatRingkas(); } catch (e) {} segarkanPanel(); });
+$('bReset').onclick = reset;
+
+(async function () {
+  legenda();
+  try { provData = await (await fetch('peta-provinsi.json')).json(); } catch (e) { $('list').textContent = 'Gagal memuat peta.'; return; }
+  gambarProv();
+  if (!apiSiap()) { $('list').appendChild(el('div', 'msg', 'Alamat API belum diisi pada config.js.')); crumb(); return; }
+  try { await muatRingkas(); } catch (e) { $('list').appendChild(el('div', 'msg', 'Gagal memuat data alumni. Periksa API_URL pada config.js.')); return; }
+  segarkanPanel();
+  setTimeout(function () { muatKab().catch(function () {}); }, 1500);
+})();
+</script>
+</body>
+</html>

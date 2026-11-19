@@ -49,6 +49,8 @@ button{border:0;color:#fff;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);cu
 .row em{font-style:normal;background:#ffc928;color:#5a3500;border-radius:99px;padding:1px 10px;font-size:.85rem}
 .msg{padding:18px;font-weight:800;color:#a65f00}
 .foot{margin-top:14px;font-size:.78rem;font-weight:700;color:#24407f;opacity:.85}
+.lc{background:none;border:0}
+.lc span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 32% 26%,#fffbe3,#ffe27a 30%,#ffb020 75%,#c96a00);color:#4a2400;font:800 .9rem 'Baloo 2',sans-serif;border:2px solid #fff;box-shadow:0 5px 12px rgba(10,42,122,.45)}
 @media (max-width:900px){.main{grid-template-columns:1fr}#peta{height:56vh}.panel{max-height:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
@@ -90,20 +92,71 @@ var $ = function (id) { return document.getElementById(id); };
 function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
 function apiSiap() { return API_URL && API_URL.indexOf('ISI_ID_DEPLOYMENT') < 0; }
 async function api(action, data) {
-  var r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ action: action, data: data || {} }) });
-  var j = JSON.parse(await r.text());
+  var r, t, j;
+  try {
+    r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: action, data: data || {} }) });
+    t = await r.text();
+  } catch (e) { throw new Error('Tidak dapat terhubung ke server. Periksa API_URL pada config.js dan koneksi internet.'); }
+  try { j = JSON.parse(t); }
+  catch (e) { throw new Error('Respons server bukan JSON. Pastikan Web App diatur "Anyone" dan URL berakhiran /exec.'); }
   if (!j.success) throw new Error(j.message || 'Gagal');
   return j.data;
 }
-
+function diagnosa(e) {
+  var m = String(e && e.message || e);
+  if (m.indexOf('Aksi tidak dikenal') >= 0) return 'Backend belum versi terbaru. Di Apps Script: Deploy > Manage deployments > ikon pensil > Version: New version > Deploy.';
+  if (m.indexOf('kesalahan pada server') >= 0) return 'Terjadi error di server. Di Apps Script jalankan PASANG_SEMUA lalu cekInstalasi (sheet Alumni atau Wilayah mungkin belum ada).';
+  return m;
+}
 var ringkas = { total: 0, contoh: 0, prov: {}, kab: {}, program: [] };
 var S = { prov: null, kab: null, program: '', q: '' };
 var provData = null, kabData = null, provNama = {}, provLayers = {}, kabLayers = {}, kabLayer = null, kabMuat = null;
 var INDO = [[-11.3, 94.6], [6.3, 141.3]];
+var lencanaLayer = null;
 var map = L.map('peta', { zoomSnap: 0.25, minZoom: 3.5, maxBounds: [[-15, 90], [10, 146]], maxBoundsViscosity: 0.7 });
 map.fitBounds(INDO);
 map.attributionControl.setPrefix(false);
+lencanaLayer = L.layerGroup().addTo(map);
+
+function pusat(g) {
+  var polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates, best = null, terbesar = 0;
+  polys.forEach(function (p) {
+    var r = p[0], a = 0, cx = 0, cy = 0;
+    for (var i = 0, j = r.length - 1; i < r.length; j = i++) {
+      var f = r[j][0] * r[i][1] - r[i][0] * r[j][1];
+      a += f; cx += (r[j][0] + r[i][0]) * f; cy += (r[j][1] + r[i][1]) * f;
+    }
+    a /= 2;
+    if (a !== 0 && Math.abs(a) > terbesar) { terbesar = Math.abs(a); best = [cy / (6 * a), cx / (6 * a)]; }
+  });
+  return best;
+}
+
+function lencana() {
+  lencanaLayer.clearLayers();
+  var daftar = [];
+  if (!S.prov) {
+    if (provData) provData.features.forEach(function (f) {
+      var n = ringkas.prov[f.properties.k] || 0;
+      if (n) daftar.push([f, n, function () { pilihProv(f.properties.k); }]);
+    });
+  } else if (kabData) {
+    kabData.features.forEach(function (f) {
+      if (f.properties.p !== S.prov) return;
+      var n = ringkas.kab[f.properties.k] || 0;
+      if (n) daftar.push([f, n, function () { pilihKab(f.properties.k); }]);
+    });
+  }
+  daftar.sort(function (a, b) { return a[1] - b[1]; }).forEach(function (d) {
+    var c = pusat(d[0].geometry); if (!c) return;
+    var u = d[1] >= 20 ? 46 : d[1] >= 6 ? 40 : 34;
+    var m = L.marker(c, { icon: L.divIcon({ className: 'lc', html: '<span>' + d[1] + '</span>', iconSize: [u, u] }), zIndexOffset: d[1] * 10, keyboard: false });
+    m.bindTooltip(d[0].properties.n + ' - ' + d[1] + ' alumni', { direction: 'top' });
+    m.on('click', d[2]);
+    lencanaLayer.addLayer(m);
+  });
+}
 
 function warna(n) { return n >= 20 ? '#c96a00' : n >= 11 ? '#f28c00' : n >= 6 ? '#ffb020' : n >= 3 ? '#ffd24a' : n >= 1 ? '#ffe9a8' : '#f2faff'; }
 function legenda() {
@@ -213,7 +266,7 @@ function kartu(a, tampilWilayah) {
 var token = 0;
 async function segarkanPanel() {
   var my = ++token, list = $('list'), kode = S.kab || S.prov || '';
-  crumb(); chipKab();
+  crumb(); chipKab(); lencana();
   $('pJ').textContent = S.kab ? namaKab(S.kab) : S.prov ? provNama[S.prov] : 'Alumni di seluruh Indonesia';
   list.textContent = ''; list.appendChild(el('div', 'msg', 'Memuat...'));
   if (!kode && !S.q) {
@@ -233,7 +286,7 @@ async function segarkanPanel() {
     list.textContent = '';
     d.items.forEach(function (a) { list.appendChild(kartu(a, !S.kab)); });
     if (!d.items.length) list.appendChild(el('div', 'msg', 'Belum ada alumni pada pilihan ini.'));
-  } catch (e) { if (my === token) { list.textContent = ''; list.appendChild(el('div', 'msg', 'Gagal memuat data alumni.')); } }
+  } catch (e) { if (my === token) { list.textContent = ''; list.appendChild(el('div', 'msg', 'Gagal memuat data alumni: ' + diagnosa(e))); } }
 }
 
 function isiStat() {
@@ -258,7 +311,7 @@ $('bReset').onclick = reset;
   try { provData = await (await fetch('peta-provinsi.json')).json(); } catch (e) { $('list').textContent = 'Gagal memuat peta.'; return; }
   gambarProv();
   if (!apiSiap()) { $('list').appendChild(el('div', 'msg', 'Alamat API belum diisi pada config.js.')); crumb(); return; }
-  try { await muatRingkas(); } catch (e) { $('list').appendChild(el('div', 'msg', 'Gagal memuat data alumni. Periksa API_URL pada config.js.')); return; }
+  try { await muatRingkas(); } catch (e) { $('list').appendChild(el('div', 'msg', 'Gagal memuat data alumni: ' + diagnosa(e))); console.error(e); return; }
   segarkanPanel();
   setTimeout(function () { muatKab().catch(function () {}); }, 1500);
 })();

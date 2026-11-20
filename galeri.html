@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teman Teguh - Gallery TCM</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height:100vh;background:radial-gradient(900px 600px at 85% 8%,#e9f8ff,transparent 60%),linear-gradient(160deg,#a9e4ff,#6cc6ff 55%,#4aa8ff);background-attachment:fixed}
+.bub{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 26%,#fffbe3 0,#ffe98a 13%,#ffc928 40%,#e29c00 72%,#9c6300 100%);box-shadow:inset -8px -12px 22px rgba(120,70,0,.5),inset 6px 8px 14px rgba(255,255,255,.6),0 18px 28px rgba(20,70,160,.25);animation:fl var(--d,12s) ease-in-out infinite alternate}
+.b1{width:110px;height:110px;left:-30px;top:40%;--d:13s}.b2{width:64px;height:64px;right:3%;top:10%;--d:9s}.b3{width:150px;height:150px;right:-50px;bottom:6%;--d:15s}
+@keyframes fl{to{transform:translateY(-40px)}}
+.top{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.1rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
+.back img{height:38px;border-radius:10px}
+.top h1{margin:0;font:800 clamp(1.6rem,4vw,2.6rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
+main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:16px 20px 40px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
+.tab{border:0;cursor:pointer;font:800 .95rem 'Nunito',sans-serif;color:#0a2a7a;background:#fff;border-radius:99px;padding:9px 18px;box-shadow:0 8px 18px rgba(20,70,170,.18)}
+.tab.on{background:linear-gradient(135deg,#0f43dc,#0a2a8f);color:#fff}
+.tab em{font-style:normal;margin-left:6px;background:#ffc928;color:#5a3500;border-radius:99px;padding:0 8px;font-size:.8rem}
+.btn{border:0;cursor:pointer;font:800 .95rem 'Nunito',sans-serif;color:#5a3500;border-radius:14px;padding:10px 18px;text-decoration:none;display:inline-block;background:linear-gradient(135deg,#fff0a8,#ffc928 60%,#f2a900);box-shadow:0 8px 18px rgba(190,120,0,.35)}
+.btn.abu{background:#eaf3ff;color:#0a2a7a;box-shadow:none}.btn.merah{background:linear-gradient(135deg,#ff5d6c,#ff8a3d);color:#fff}.btn[disabled]{opacity:.65;cursor:wait}
+.sp{flex:1}
+.grid{columns:260px;column-gap:14px}
+.ph{break-inside:avoid;margin:0 0 14px;border:0;padding:0;width:100%;cursor:pointer;display:block;position:relative;border-radius:22px;overflow:hidden;background:#dbeeff;box-shadow:0 12px 28px rgba(20,70,170,.25);transition:transform .2s,box-shadow .2s;text-align:left;font:inherit}
+.ph:hover,.ph:focus-visible{transform:translateY(-4px) scale(1.01);box-shadow:0 18px 36px rgba(20,70,170,.35);outline:none}
+.ph img{display:block;width:100%;height:auto;min-height:120px;object-fit:cover}
+.ph .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;color:#fff;background:linear-gradient(transparent,rgba(5,20,80,.82))}
+.ph .cap b{display:block;font:800 1rem/1.2 'Baloo 2',sans-serif}.ph .cap span{font-size:.76rem;font-weight:700;opacity:.9}
+.ph .kt{position:absolute;left:10px;top:10px;background:#ffc928;color:#5a3500;border-radius:99px;padding:2px 12px;font-weight:800;font-size:.76rem}
+.kunci{display:grid;place-items:center;min-height:170px;color:#2c5ad8;font-weight:800}
+.kunci svg{width:46px;height:46px;stroke:#2c5ad8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.msg{padding:22px;font-weight:800;color:#a65f00;background:rgba(255,255,255,.85);border-radius:18px}
+.lb{position:fixed;inset:0;z-index:40;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;background:rgba(3,12,52,.92)}
+.lb.on{display:flex}
+.lb img{max-width:min(1100px,94vw);max-height:76vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.6);background:#0a2a7a}
+.lb .tx{color:#fff;text-align:center;max-width:min(900px,92vw)}.lb .tx b{display:block;font:800 1.25rem 'Baloo 2',sans-serif}.lb .tx span{font-size:.9rem;opacity:.85;font-weight:700}
+.lb button{position:absolute;border:0;cursor:pointer;color:#fff;background:rgba(255,255,255,.18);width:46px;height:46px;border-radius:50%;font-size:1.6rem}
+.lb .x{top:14px;right:14px}.lb .pv{left:12px;top:50%}.lb .nx{right:12px;top:50%}
+.lb .ops{display:flex;gap:8px}.lb .ops button{position:static;width:auto;height:auto;border-radius:12px;padding:8px 16px;font:800 .9rem 'Nunito',sans-serif;font-size:.9rem}
+.ov{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(4,16,70,.6);backdrop-filter:blur(6px)}
+.ov.on{display:flex}
+.modal{width:min(520px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:26px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.modal h2{margin:0 0 12px;font:800 1.6rem 'Baloo 2',sans-serif}
+.modal label{display:block;margin:10px 0 4px;font-weight:800;font-size:.88rem}
+select,input,textarea{width:100%;font:700 .95rem 'Nunito',system-ui,sans-serif;color:#0a2a7a;border:2px solid #cfe2ff;border-radius:14px;padding:10px 14px;background:#fff}
+textarea{min-height:64px;resize:vertical}
+.sw{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}.sw label{margin:0;display:flex;gap:6px;align-items:center}.sw input{width:auto}
+.err{min-height:20px;margin:8px 0 0;font-weight:800;font-size:.9rem;color:#e11d2e}
+.foot{margin-top:6px;font-size:.78rem;font-weight:700;color:#24407f}
+</style>
+</head>
+<body>
+<i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i>
+<div class="top">
+  <a class="back" href="pustaka.html?ruang=Mentoring"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a>
+  <h1>GALLERY TCM</h1>
+</div>
+<main>
+  <section class="tabs" id="tabs"><span class="sp"></span><button class="btn" id="bUp" type="button" hidden>Unggah Foto</button><a class="btn merah" id="bMasuk" href="index.html" hidden>Masuk untuk mengunggah</a></section>
+  <p class="foot" id="ket">Teaching, Coaching, dan Mentoring</p>
+  <section class="grid" id="grid"></section>
+  <p style="text-align:center"><button class="btn abu" id="bMore" type="button" hidden>Muat lebih banyak</button></p>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto">
+  <button class="x" id="lx" type="button" aria-label="Tutup">×</button>
+  <button class="pv" id="lp" type="button" aria-label="Sebelumnya">‹</button>
+  <button class="nx" id="ln" type="button" aria-label="Berikutnya">›</button>
+  <img id="li" alt="">
+  <div class="tx"><b id="lj"></b><span id="lm"></span></div>
+  <div class="ops" id="lo"></div>
+</div>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <form class="modal" id="frm" novalidate>
+    <h2 id="mt">Unggah Foto</h2>
+    <label for="kat">Kategori</label><select id="kat"></select>
+    <label for="jdl">Judul (kosongkan untuk memakai nama file)</label><input id="jdl" maxlength="150">
+    <label for="dsk">Keterangan</label><textarea id="dsk" maxlength="500"></textarea>
+    <label>Akses</label>
+    <div class="sw"><label><input type="radio" name="aks" value="Publik" checked> Publik</label><label><input type="radio" name="aks" value="Peserta"> Peserta (harus masuk)</label></div>
+    <label for="fil">Foto (boleh lebih dari satu; JPG, PNG, atau WEBP)</label>
+    <input type="file" id="fil" accept=".jpg,.jpeg,.png,.webp" multiple>
+    <div class="foot">Foto diperkecil otomatis hingga 1600 piksel agar ringan.</div>
+    <p class="err" id="err" role="alert"></p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px"><button type="button" class="btn abu" id="bBatal">Batal</button><button type="submit" class="btn merah" id="bSimpan">Simpan</button></div>
+  </form>
+</div>
+
+<script src="config.js"></script>
+<script>
+var API_URL = (window.TT_CONFIG && TT_CONFIG.API_URL) || '';
+var $ = function (id) { return document.getElementById(id); };
+function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
+var TOKEN = (function () { try { return sessionStorage.getItem('tt_token'); } catch (_) { return null; } })();
+async function api(action, data) {
+  var r, t, j;
+  try {
+    r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: action, token: TOKEN || undefined, data: data || {} }) });
+    t = await r.text();
+  } catch (e) { throw new Error('Tidak dapat terhubung ke server. Periksa API_URL pada config.js dan koneksi internet.'); }
+  try { j = JSON.parse(t); } catch (e) { throw new Error('Respons server bukan JSON. Pastikan Web App diatur "Anyone" dan URL berakhiran /exec.'); }
+  if (!j.success) throw new Error(j.message || 'Gagal');
+  return j.data;
+}
+function diagnosa(e) {
+  var m = String(e && e.message || e);
+  if (m.indexOf('Aksi tidak dikenal') >= 0 || m.indexOf('Ruang tidak valid') >= 0) return 'Backend belum versi terbaru. Di Apps Script: Deploy > Manage deployments > ikon pensil > Version: New version > Deploy.';
+  if (m.indexOf('kesalahan pada server') >= 0) return 'Terjadi error di server. Jalankan PASANG_SEMUA lalu cekInstalasi di Apps Script.';
+  return m;
+}
+
+var R = null, S = { kat: '', hal: 1 }, daftar = [], idx = 0, blobUrl = null;
+function thumb(it, w) { return 'https://drive.google.com/thumbnail?id=' + encodeURIComponent(it.FileID) + '&sz=w' + w; }
+function tgl(s) { var d = new Date(s); return isNaN(d) ? '' : d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
+
+function gambarTab() {
+  var w = $('tabs'), sp = w.querySelector('.sp'); w.querySelectorAll('.tab').forEach(function (x) { x.remove(); });
+  var semua = R.kategori.reduce(function (a, k) { return a + k.jumlah; }, 0);
+  [{ nama: '', label: 'Semua', jumlah: semua }].concat(R.kategori.map(function (k) { return { nama: k.nama, label: k.nama, jumlah: k.jumlah }; })).forEach(function (k) {
+    var b = el('button', 'tab' + (S.kat === k.nama ? ' on' : ''), k.label); b.type = 'button'; b.appendChild(el('em', '', String(k.jumlah)));
+    b.onclick = function () { S.kat = k.nama; gambarTab(); muat(true); };
+    w.insertBefore(b, sp);
+  });
+}
+
+function tile(it, i) {
+  var b = el('button', 'ph'); b.type = 'button'; b.setAttribute('aria-label', 'Buka foto ' + it.Judul);
+  if (it.FileID) {
+    var im = new Image(); im.loading = 'lazy'; im.alt = it.Judul; im.src = thumb(it, 800);
+    im.onerror = function () { im.replaceWith(kunciBox()); };
+    b.appendChild(im);
+  } else b.appendChild(kunciBox());
+  b.appendChild(el('span', 'kt', it.Kategori));
+  var c = el('div', 'cap'); c.appendChild(el('b', '', it.Judul)); c.appendChild(el('span', '', tgl(it.Tgl_Unggah))); b.appendChild(c);
+  b.onclick = function () { buka(i); };
+  return b;
+}
+function kunciBox() {
+  var d = el('div', 'kunci'); d.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>'; return d;
+}
+
+async function muat(baru) {
+  if (baru) { S.hal = 1; daftar = []; $('grid').textContent = ''; $('grid').appendChild(el('div', 'msg', 'Memuat...')); }
+  try {
+    var d = await api('pustakaDaftar', { ruang: 'Galeri', kategori: S.kat, halaman: S.hal, perHalaman: 30 });
+    if (baru) $('grid').textContent = '';
+    d.items.forEach(function (it) { daftar.push(it); $('grid').appendChild(tile(it, daftar.length - 1)); });
+    $('bMore').hidden = daftar.length >= d.total;
+    if (!d.total) $('grid').appendChild(el('div', 'msg', 'Belum ada foto pada pilihan ini.'));
+  } catch (e) { $('grid').textContent = ''; $('grid').appendChild(el('div', 'msg', 'Gagal memuat foto: ' + diagnosa(e))); $('bMore').hidden = true; }
+}
+
+async function tampilFoto(it) {
+  if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+  var im = $('li'); im.removeAttribute('src');
+  if (it.FileID) im.src = thumb(it, 1800);
+  else {
+    try { var r = await api('pustakaUnduh', { id: it.ID }); var bin = atob(r.data), a = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); blobUrl = URL.createObjectURL(new Blob([a], { type: r.tipe })); im.src = blobUrl; }
+    catch (e) { $('lm').textContent = diagnosa(e); }
+  }
+}
+function buka(i) {
+  idx = i; var it = daftar[i]; $('lb').classList.add('on');
+  $('lj').textContent = it.Judul; $('lm').textContent = [it.Kategori, tgl(it.Tgl_Unggah), it.Deskripsi].filter(Boolean).join(' · ');
+  $('li').alt = it.Judul; tampilFoto(it);
+  var o = $('lo'); o.textContent = '';
+  if (it.FileID) { var l = el('a', 'btn', 'Unduh'); l.href = it.url; l.target = '_blank'; l.rel = 'noopener noreferrer'; o.appendChild(l); }
+  if (it.kelola) {
+    var h = el('button', '', 'Hapus'); h.type = 'button'; h.style.background = 'rgba(255,93,108,.9)'; h.style.color = '#fff';
+    h.onclick = async function () { if (!confirm('Hapus foto ini dari galeri?')) return; try { await api('pustakaHapus', { id: it.ID }); tutup(); await segarkan(); } catch (e) { alert(diagnosa(e)); } };
+    o.appendChild(h);
+  }
+}
+function tutup() { $('lb').classList.remove('on'); $('li').removeAttribute('src'); }
+function geser(d) { if (!daftar.length) return; buka((idx + d + daftar.length) % daftar.length); }
+$('lx').onclick = tutup; $('lp').onclick = function () { geser(-1); }; $('ln').onclick = function () { geser(1); };
+$('lb').addEventListener('click', function (e) { if (e.target === $('lb')) tutup(); });
+document.addEventListener('keydown', function (e) {
+  if ($('lb').classList.contains('on')) { if (e.key === 'Escape') tutup(); if (e.key === 'ArrowLeft') geser(-1); if (e.key === 'ArrowRight') geser(1); }
+  else if (e.key === 'Escape') $('ov').classList.remove('on');
+});
+$('bMore').onclick = function () { S.hal++; muat(false); };
+
+async function segarkan() { R = await api('pustakaRingkasan', { ruang: 'Galeri' }); gambarTab(); await muat(true); }
+
+function perkecil(file) {
+  return new Promise(function (ok, gagal) {
+    var u = URL.createObjectURL(file), im = new Image();
+    im.onload = function () {
+      var m = 1600, s = Math.min(1, m / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      c.width = Math.round(im.width * s); c.height = Math.round(im.height * s);
+      var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(u); ok(c.toDataURL('image/jpeg', 0.85).split(',')[1]);
+    };
+    im.onerror = function () { URL.revokeObjectURL(u); gagal(new Error('Foto "' + file.name + '" tidak dapat dibaca.')); };
+    im.src = u;
+  });
+}
+
+$('frm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var err = $('err'), btn = $('bSimpan'), files = Array.prototype.slice.call($('fil').files);
+  err.style.color = ''; err.textContent = '';
+  if (!files.length) { err.textContent = 'Pilih minimal satu foto.'; return; }
+  btn.disabled = true;
+  try {
+    for (var i = 0; i < files.length; i++) {
+      err.style.color = '#24407f'; err.textContent = 'Mengunggah foto ' + (i + 1) + ' dari ' + files.length + '...';
+      var f = files[i], dasar = f.name.replace(/\.[^.]+$/, '');
+      await api('pustakaUnggah', { ruang: 'Galeri', kategori: $('kat').value, judul: ($('jdl').value.trim() && files.length === 1) ? $('jdl').value.trim() : dasar,
+        deskripsi: $('dsk').value, akses: document.querySelector('input[name=aks]:checked').value, status: 'Terbit', mode: 'file',
+        namaFile: dasar + '.jpg', dataBase64: await perkecil(f) });
+    }
+    $('ov').classList.remove('on'); await segarkan();
+  } catch (x) { err.style.color = ''; err.textContent = diagnosa(x); }
+  btn.disabled = false;
+});
+$('bUp').onclick = function () { $('err').textContent = ''; $('fil').value = ''; if (S.kat) $('kat').value = S.kat; $('ov').classList.add('on'); };
+$('bBatal').onclick = function () { $('ov').classList.remove('on'); };
+$('ov').addEventListener('click', function (e) { if (e.target === $('ov')) $('ov').classList.remove('on'); });
+
+(async function () {
+  if (!API_URL || API_URL.indexOf('ISI_ID_DEPLOYMENT') >= 0) { $('grid').appendChild(el('div', 'msg', 'Alamat API belum diisi pada config.js.')); return; }
+  try {
+    R = await api('pustakaRingkasan', { ruang: 'Galeri' });
+    R.kategori.forEach(function (k) { var o = el('option', '', k.nama); o.value = k.nama; $('kat').appendChild(o); });
+    $('bUp').hidden = !R.bisaUnggah; $('bMasuk').hidden = R.masuk;
+    gambarTab(); await muat(true);
+  } catch (e) { $('grid').textContent = ''; $('grid').appendChild(el('div', 'msg', 'Gagal memuat galeri: ' + diagnosa(e))); }
+})();
+</script>
+</body>
+</html>

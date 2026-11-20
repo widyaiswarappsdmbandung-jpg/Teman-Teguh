@@ -75,7 +75,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-sh
   <div class="info"><span id="jml"></span><button class="btn sm abu" id="bSemua" type="button" hidden>Tampilkan semua kategori</button></div>
   <section class="grid" id="list"></section>
   <p style="text-align:center"><button class="btn abu" id="bMore" type="button" hidden>Muat lebih banyak</button></p>
-  <p class="foot">Bahan di Pustaka TEGUH dapat diunduh oleh pengunjung dan peserta pelatihan. Bahan tertentu hanya tampil bagi peserta yang sudah masuk.</p>
+  <p class="foot">Bahan dapat diunduh oleh pengunjung dan peserta pelatihan. Bahan tertentu hanya tampil bagi peserta yang sudah masuk.</p>
 </main>
 
 <div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="mt">
@@ -111,6 +111,12 @@ var $ = function (id) { return document.getElementById(id); };
 function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
 function simpan(k) { try { return sessionStorage.getItem(k); } catch (_) { return null; } }
 var TOKEN = simpan('tt_token');
+var RUANG = (new URLSearchParams(location.search).get('ruang') || 'Pustaka');
+if (['Pustaka', 'Coaching', 'Mentoring'].indexOf(RUANG) < 0) RUANG = 'Pustaka';
+var JUDUL = { Pustaka: 'Pustaka TEGUH', Coaching: 'COACHING', Mentoring: 'MENTORING' }[RUANG];
+document.title = 'Teman Teguh - ' + JUDUL;
+document.querySelector('.top h1').textContent = JUDUL;
+if (RUANG !== 'Pustaka') document.querySelector('.back').href = 'pelatihan.html';
 
 async function api(action, data) {
   var r, t, j;
@@ -151,6 +157,12 @@ function gambarKat() {
     b.onclick = function () { S.kat = S.kat === k.nama ? '' : k.nama; gambarKat(); muatDaftar(true); };
     w.appendChild(b);
   });
+  if (RUANG === 'Mentoring') {
+    var g = el('a', 'cat'); g.href = 'galeri.html'; g.style.setProperty('--c', '#ec4899'); g.style.textDecoration = 'none';
+    var ik = el('span', 'ic'); ik.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+    g.appendChild(ik); g.appendChild(el('b', '', 'GALLERY TCM')); g.appendChild(el('small', '', 'Foto proses Teaching, Coaching, dan Mentoring'));
+    w.appendChild(g);
+  }
   $('bSemua').hidden = !S.kat;
 }
 
@@ -211,7 +223,7 @@ function kartu(it) {
 async function muatDaftar(baru) {
   if (baru) { S.hal = 1; $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Memuat...')); }
   try {
-    var d = await api('pustakaDaftar', { kategori: S.kat, q: S.q, program: S.program, tahun: S.tahun, halaman: S.hal, perHalaman: 24 });
+    var d = await api('pustakaDaftar', { ruang: RUANG, kategori: S.kat, q: S.q, program: S.program, tahun: S.tahun, halaman: S.hal, perHalaman: 24 });
     if (baru) $('list').textContent = '';
     d.items.forEach(function (it) { $('list').appendChild(kartu(it)); });
     var tampil = $('list').querySelectorAll('.it').length;
@@ -225,7 +237,7 @@ async function muatDaftar(baru) {
   } catch (e) { $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Gagal memuat bahan: ' + diagnosa(e))); $('bMore').hidden = true; }
 }
 
-async function segarkan() { R = await api('pustakaRingkasan'); gambarKat(); await muatDaftar(true); }
+async function segarkan() { R = await api('pustakaRingkasan', { ruang: RUANG }); gambarKat(); await muatDaftar(true); }
 
 function bukaForm(it) {
   edit = it || null; $('err').textContent = '';
@@ -250,7 +262,7 @@ $('frm').addEventListener('submit', async function (e) {
   e.preventDefault();
   var err = $('err'), btn = $('bSimpan'); err.textContent = '';
   if (!$('jdl').value.trim()) { err.textContent = 'Judul wajib diisi.'; return; }
-  var data = { kategori: $('kat').value, judul: $('jdl').value, deskripsi: $('dsk').value, program: $('prg').value, tahun: $('thn').value,
+  var data = { ruang: RUANG, kategori: $('kat').value, judul: $('jdl').value, deskripsi: $('dsk').value, program: $('prg').value, tahun: $('thn').value,
     penulis: $('pnl').value, akses: nilai('aks'), status: nilai('sts') };
   btn.disabled = true;
   try {
@@ -286,7 +298,7 @@ $('fThn').onchange = function () { S.tahun = this.value; muatDaftar(true); };
 (async function () {
   if (!API_URL || API_URL.indexOf('ISI_ID_DEPLOYMENT') >= 0) { $('list').appendChild(el('div', 'msg', 'Alamat API belum diisi pada config.js.')); return; }
   try {
-    R = await api('pustakaRingkasan');
+    R = await api('pustakaRingkasan', { ruang: RUANG });
     R.program.forEach(function (p) {
       [$('fProg'), $('prg')].forEach(function (s) { var o = el('option', '', p); o.value = p; s.appendChild(o); });
     });

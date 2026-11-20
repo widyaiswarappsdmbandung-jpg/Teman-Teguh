@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teman Teguh - Pustaka TEGUH</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height:100vh;background:radial-gradient(900px 600px at 85% 8%,#e9f8ff,transparent 60%),linear-gradient(160deg,#a9e4ff,#6cc6ff 55%,#4aa8ff);background-attachment:fixed}
+.bub{position:fixed;z-index:0;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 26%,#fffbe3 0,#ffe98a 13%,#ffc928 40%,#e29c00 72%,#9c6300 100%);box-shadow:inset -8px -12px 22px rgba(120,70,0,.5),inset 6px 8px 14px rgba(255,255,255,.6),0 18px 28px rgba(20,70,160,.25);animation:fl var(--d,12s) ease-in-out infinite alternate}
+.b1{width:110px;height:110px;left:-30px;top:40%;--d:13s}.b2{width:64px;height:64px;right:3%;top:10%;--d:9s}.b3{width:150px;height:150px;right:-50px;bottom:6%;--d:15s}
+@keyframes fl{to{transform:translateY(-40px)}}
+.top{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.1rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
+.back img{height:38px;border-radius:10px}
+.top h1{margin:0;font:800 clamp(1.6rem,4vw,2.6rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
+main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:16px 20px 40px}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.cat{border:0;cursor:pointer;text-align:left;font:inherit;color:#0a2a7a;background:#fff;border-radius:24px;padding:16px;box-shadow:0 12px 28px rgba(20,70,170,.2);border-top:7px solid var(--c);transition:transform .2s cubic-bezier(.3,1.5,.5,1),box-shadow .2s;position:relative}
+.cat:hover,.cat:focus-visible{transform:translateY(-4px);box-shadow:0 18px 36px rgba(20,70,170,.3);outline:none}
+.cat.on{background:linear-gradient(160deg,#fff,#fff7da);box-shadow:0 0 0 3px var(--c),0 18px 36px rgba(20,70,170,.3)}
+.cat .ic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,#fff)}
+.cat svg{width:26px;height:26px;stroke:var(--c);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cat b{display:block;margin-top:10px;font:800 1.08rem/1.2 'Baloo 2',sans-serif}
+.cat small{display:block;margin-top:2px;font-weight:700;color:#4a5d92;font-size:.78rem;line-height:1.3}
+.cat em{position:absolute;right:12px;top:14px;font-style:normal;background:var(--c);color:#fff;border-radius:99px;padding:1px 10px;font:800 .85rem 'Baloo 2',sans-serif}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;align-items:center}
+select,input,textarea{font:700 .95rem 'Nunito',system-ui,sans-serif;color:#0a2a7a;border:2px solid #cfe2ff;border-radius:14px;padding:10px 14px;background:#fff;max-width:100%}
+.bar input{flex:1;min-width:180px}
+select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.2)}
+.btn{border:0;cursor:pointer;font:800 .95rem 'Nunito',sans-serif;color:#fff;border-radius:14px;padding:10px 18px;text-decoration:none;display:inline-block;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);box-shadow:0 8px 18px rgba(255,93,108,.35)}
+.btn.gold{background:linear-gradient(135deg,#fff0a8,#ffc928 60%,#f2a900);color:#5a3500;box-shadow:0 8px 18px rgba(190,120,0,.35)}
+.btn.sm{padding:6px 12px;font-size:.82rem;box-shadow:none}.btn.abu{background:#eaf3ff;color:#0a2a7a;box-shadow:none}.btn[disabled]{opacity:.65;cursor:wait}
+.info{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.it{background:#fff;border-radius:22px;padding:16px 18px;box-shadow:0 12px 28px rgba(20,70,170,.18);display:flex;gap:14px;border-left:7px solid var(--c,#3b82f6)}
+.tp{flex:none;width:54px;height:62px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,#3b82f6) 16%,#fff);color:var(--c,#3b82f6);font:800 .82rem 'Baloo 2',sans-serif;text-transform:uppercase}
+.it h3{margin:0;font:800 1.08rem/1.25 'Baloo 2',sans-serif;word-break:break-word}
+.it p{margin:3px 0 0;font-size:.86rem;font-weight:600;color:#3d4f86;line-height:1.45;word-break:break-word}
+.mt{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.mt span{background:#eaf3ff;color:#2c5ad8;border-radius:99px;padding:1px 10px;font-size:.74rem;font-weight:800}
+.mt .lk{background:#fff0a8;color:#5a3500}
+.ac{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.msg{padding:22px;font-weight:800;color:#a65f00;background:rgba(255,255,255,.8);border-radius:18px}
+.ov{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(4,16,70,.6);backdrop-filter:blur(6px)}
+.ov.on{display:flex}
+.modal{width:min(560px,100%);max-height:94vh;overflow:auto;background:#fff;border-radius:26px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.modal h2{margin:0 0 12px;font:800 1.6rem 'Baloo 2',sans-serif}
+.modal label{display:block;margin:10px 0 4px;font-weight:800;font-size:.88rem}
+.modal input,.modal select,.modal textarea{width:100%}
+.modal textarea{min-height:70px;resize:vertical}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sw{display:flex;gap:8px;margin:6px 0}.sw label{margin:0;display:flex;gap:6px;align-items:center;font-weight:800}.sw input{width:auto}
+.err{min-height:20px;margin:8px 0 0;font-weight:800;font-size:.9rem;color:#e11d2e}
+.foot{margin-top:18px;font-size:.78rem;font-weight:700;color:#24407f;opacity:.85}
+@media (max-width:600px){.r2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i>
+<div class="top">
+  <a class="back" href="index.html"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a>
+  <h1>Pustaka TEGUH</h1>
+</div>
+<main>
+  <section class="cats" id="cats"></section>
+  <section class="bar">
+    <input id="fQ" type="search" placeholder="Cari bahan" maxlength="80">
+    <select id="fProg" aria-label="Program"><option value="">Semua Program</option></select>
+    <select id="fThn" aria-label="Tahun"><option value="">Semua Tahun</option></select>
+    <button class="btn gold" id="bUp" type="button" hidden>Unggah Bahan</button>
+    <a class="btn" id="bMasuk" href="index.html" hidden>Masuk untuk mengunggah</a>
+  </section>
+  <div class="info"><span id="jml"></span><button class="btn sm abu" id="bSemua" type="button" hidden>Tampilkan semua kategori</button></div>
+  <section class="grid" id="list"></section>
+  <p style="text-align:center"><button class="btn abu" id="bMore" type="button" hidden>Muat lebih banyak</button></p>
+  <p class="foot">Bahan di Pustaka TEGUH dapat diunduh oleh pengunjung dan peserta pelatihan. Bahan tertentu hanya tampil bagi peserta yang sudah masuk.</p>
+</main>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <form class="modal" id="frm" novalidate>
+    <h2 id="mt">Unggah Bahan</h2>
+    <label for="kat">Kategori</label><select id="kat"></select>
+    <label for="jdl">Judul</label><input id="jdl" maxlength="150" required>
+    <label for="dsk">Deskripsi</label><textarea id="dsk" maxlength="500"></textarea>
+    <div class="r2">
+      <div><label for="prg">Program</label><select id="prg"><option value="">-</option></select></div>
+      <div><label for="thn">Tahun</label><input id="thn" inputmode="numeric" maxlength="4" placeholder="2026"></div>
+    </div>
+    <label for="pnl">Penulis</label><input id="pnl" maxlength="100">
+    <label>Akses unduh</label>
+    <div class="sw"><label><input type="radio" name="aks" value="Publik" checked> Publik (semua orang)</label><label><input type="radio" name="aks" value="Peserta"> Peserta (harus masuk)</label></div>
+    <label>Status</label>
+    <div class="sw"><label><input type="radio" name="sts" value="Terbit" checked> Terbit</label><label><input type="radio" name="sts" value="Draf"> Draf</label></div>
+    <div id="sumber">
+      <label>Sumber bahan</label>
+      <div class="sw"><label><input type="radio" name="mode" value="file" checked> Unggah file</label><label><input type="radio" name="mode" value="tautan"> Tautan (Drive, YouTube, dll.)</label></div>
+      <div id="bFile"><input type="file" id="fil" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv,.txt,.zip,.jpg,.jpeg,.png,.mp4"><div class="foot" id="batas"></div></div>
+      <div id="bUrl" hidden><input id="url" type="url" placeholder="https://..." maxlength="500"></div>
+    </div>
+    <p class="err" id="err" role="alert"></p>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px"><button type="button" class="btn abu" id="bBatal">Batal</button><button type="submit" class="btn" id="bSimpan">Simpan</button></div>
+  </form>
+</div>
+
+<script src="config.js"></script>
+<script>
+var API_URL = (window.TT_CONFIG && TT_CONFIG.API_URL) || '';
+var $ = function (id) { return document.getElementById(id); };
+function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
+function simpan(k) { try { return sessionStorage.getItem(k); } catch (_) { return null; } }
+var TOKEN = simpan('tt_token');
+
+async function api(action, data) {
+  var r, t, j;
+  try {
+    r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: action, token: TOKEN || undefined, data: data || {} }) });
+    t = await r.text();
+  } catch (e) { throw new Error('Tidak dapat terhubung ke server. Periksa API_URL pada config.js dan koneksi internet.'); }
+  try { j = JSON.parse(t); } catch (e) { throw new Error('Respons server bukan JSON. Pastikan Web App diatur "Anyone" dan URL berakhiran /exec.'); }
+  if (!j.success) throw new Error(j.message || 'Gagal');
+  return j.data;
+}
+function diagnosa(e) {
+  var m = String(e && e.message || e);
+  if (m.indexOf('Aksi tidak dikenal') >= 0) return 'Backend belum versi terbaru. Di Apps Script: Deploy > Manage deployments > ikon pensil > Version: New version > Deploy.';
+  if (m.indexOf('kesalahan pada server') >= 0) return 'Terjadi error di server. Jalankan PASANG_SEMUA lalu cekInstalasi di Apps Script.';
+  return m;
+}
+
+var WARNA = ['#ff5d6c', '#ffb020', '#18c08a', '#8b5cf6', '#3b82f6', '#0ea5a4'];
+var IKON = [
+  '<path d="M2 5.5A1.5 1.5 0 0 1 3.5 4H9a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3.5A1.5 1.5 0 0 1 2 16.5z"/><path d="M22 5.5A1.5 1.5 0 0 0 20.5 4H15a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h6.5a1.5 1.5 0 0 0 1.5-1.5z"/>',
+  '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8M7 12l3-3 3 2 4-4"/>',
+  '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/>',
+  '<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
+  '<path d="M20 11a8 8 0 0 0-14.5-4.5L4 8"/><path d="M4 4v4h4M4 13a8 8 0 0 0 14.5 4.5L20 16"/><path d="M20 20v-4h-4"/>',
+  '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/>'
+];
+var S = { kat: '', q: '', program: '', tahun: '', hal: 1 }, R = null, katAktif = [], edit = null, tmr;
+
+function ikon(i) { var s = el('span', 'ic'); s.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + IKON[i % 6] + '</svg>'; return s; }
+
+function gambarKat() {
+  var w = $('cats'); w.textContent = '';
+  R.kategori.forEach(function (k, i) {
+    var b = el('button', 'cat' + (S.kat === k.nama ? ' on' : '')); b.type = 'button'; b.style.setProperty('--c', WARNA[i % 6]);
+    b.appendChild(ikon(i)); b.appendChild(el('em', '', String(k.jumlah))); b.appendChild(el('b', '', k.nama)); b.appendChild(el('small', '', k.deskripsi));
+    b.onclick = function () { S.kat = S.kat === k.nama ? '' : k.nama; gambarKat(); muatDaftar(true); };
+    w.appendChild(b);
+  });
+  $('bSemua').hidden = !S.kat;
+}
+
+function ukuran(kb) { return kb >= 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB'; }
+function tglID(s) { var d = new Date(s); return isNaN(d) ? '' : d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); }
+
+function unduhBlob(d) {
+  var bin = atob(d.data), arr = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  var u = URL.createObjectURL(new Blob([arr], { type: d.tipe })), a = document.createElement('a');
+  a.href = u; a.download = d.nama; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+}
+
+function kartu(it) {
+  var idx = Math.max(0, R.kategori.map(function (k) { return k.nama; }).indexOf(it.Kategori)), c = WARNA[idx % 6];
+  var d = el('article', 'it'); d.style.setProperty('--c', c);
+  d.appendChild(el('div', 'tp', it.Sumber === 'Tautan' ? 'LINK' : (it.Tipe || 'file')));
+  var b = el('div'); b.style.minWidth = '0';
+  b.appendChild(el('h3', '', it.Judul));
+  if (it.Deskripsi) b.appendChild(el('p', '', it.Deskripsi));
+  var m = el('div', 'mt'); m.appendChild(el('span', '', it.Kategori));
+  if (it.Program) m.appendChild(el('span', '', it.Program));
+  if (it.Tahun) m.appendChild(el('span', '', String(it.Tahun)));
+  if (it.Sumber === 'File') m.appendChild(el('span', '', ukuran(it.Ukuran_KB)));
+  if (it.Akses === 'Peserta') m.appendChild(el('span', 'lk', 'Peserta'));
+  if (it.Status === 'Draf') m.appendChild(el('span', 'lk', 'Draf'));
+  b.appendChild(m);
+  var info = [it.Penulis ? 'Penulis: ' + it.Penulis : '', it.Pengunggah ? 'Diunggah: ' + it.Pengunggah : '', tglID(it.Tgl_Unggah), it.Unduhan + ' unduhan'].filter(Boolean).join(' · ');
+  b.appendChild(el('p', '', info));
+  var a = el('div', 'ac');
+  if (it.url) {
+    var l = el('a', 'btn sm', it.Sumber === 'Tautan' ? 'Buka' : 'Unduh'); l.href = it.url; l.target = '_blank'; l.rel = 'noopener noreferrer';
+    l.onclick = function () { if (it.Sumber === 'File') api('pustakaCatat', { id: it.ID }).catch(function () {}); };
+    a.appendChild(l);
+  } else {
+    var u = el('button', 'btn sm', 'Unduh'); u.type = 'button';
+    u.onclick = async function () {
+      u.disabled = true;
+      try { var r = await api('pustakaUnduh', { id: it.ID }); if (r.url) window.open(r.url, '_blank', 'noopener'); else unduhBlob(r); }
+      catch (e) { alert(diagnosa(e)); }
+      u.disabled = false;
+    };
+    a.appendChild(u);
+  }
+  if (it.kelola) {
+    var e1 = el('button', 'btn sm abu', 'Ubah'); e1.type = 'button'; e1.onclick = function () { bukaForm(it); }; a.appendChild(e1);
+    var h = el('button', 'btn sm abu', 'Hapus'); h.type = 'button';
+    h.onclick = async function () {
+      if (!confirm('Hapus "' + it.Judul + '" dari daftar?')) return;
+      try { await api('pustakaHapus', { id: it.ID }); await segarkan(); } catch (e) { alert(diagnosa(e)); }
+    };
+    a.appendChild(h);
+  }
+  b.appendChild(a); d.appendChild(b);
+  return d;
+}
+
+async function muatDaftar(baru) {
+  if (baru) { S.hal = 1; $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Memuat...')); }
+  try {
+    var d = await api('pustakaDaftar', { kategori: S.kat, q: S.q, program: S.program, tahun: S.tahun, halaman: S.hal, perHalaman: 24 });
+    if (baru) $('list').textContent = '';
+    d.items.forEach(function (it) { $('list').appendChild(kartu(it)); });
+    var tampil = $('list').querySelectorAll('.it').length;
+    $('jml').textContent = d.total + ' bahan' + (S.kat ? ' di ' + S.kat : '');
+    $('bMore').hidden = tampil >= d.total;
+    if (!d.total) $('list').appendChild(el('div', 'msg', 'Belum ada bahan pada pilihan ini.'));
+    var st = $('fThn'), pilih = st.value;
+    st.textContent = ''; var o0 = el('option', '', 'Semua Tahun'); o0.value = ''; st.appendChild(o0);
+    d.tahun.forEach(function (y) { var o = el('option', '', y); o.value = y; st.appendChild(o); });
+    st.value = pilih;
+  } catch (e) { $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Gagal memuat bahan: ' + diagnosa(e))); $('bMore').hidden = true; }
+}
+
+async function segarkan() { R = await api('pustakaRingkasan'); gambarKat(); await muatDaftar(true); }
+
+function bukaForm(it) {
+  edit = it || null; $('err').textContent = '';
+  $('mt').textContent = it ? 'Ubah Bahan' : 'Unggah Bahan';
+  $('kat').value = it ? it.Kategori : (S.kat || R.kategori[0].nama);
+  $('jdl').value = it ? it.Judul : ''; $('dsk').value = it ? (it.Deskripsi || '') : '';
+  $('prg').value = it ? (it.Program || '') : ''; $('thn').value = it ? (it.Tahun || '') : ''; $('pnl').value = it ? (it.Penulis || '') : '';
+  document.querySelector('input[name=aks][value=' + (it ? it.Akses : 'Publik') + ']').checked = true;
+  document.querySelector('input[name=sts][value=' + (it ? (it.Status === 'Draf' ? 'Draf' : 'Terbit') : 'Terbit') + ']').checked = true;
+  $('sumber').hidden = !!it; $('fil').value = ''; $('url').value = '';
+  document.querySelector('input[name=mode][value=file]').checked = true; gantiMode();
+  $('ov').classList.add('on'); $('jdl').focus();
+}
+function tutupForm() { $('ov').classList.remove('on'); }
+function gantiMode() { var t = document.querySelector('input[name=mode]:checked').value === 'tautan'; $('bFile').hidden = t; $('bUrl').hidden = !t; }
+function nilai(n) { return document.querySelector('input[name=' + n + ']:checked').value; }
+function bacaBase64(f) {
+  return new Promise(function (ok, gagal) { var r = new FileReader(); r.onload = function () { ok(String(r.result).split(',')[1] || ''); }; r.onerror = function () { gagal(new Error('File tidak dapat dibaca.')); }; r.readAsDataURL(f); });
+}
+
+$('frm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var err = $('err'), btn = $('bSimpan'); err.textContent = '';
+  if (!$('jdl').value.trim()) { err.textContent = 'Judul wajib diisi.'; return; }
+  var data = { kategori: $('kat').value, judul: $('jdl').value, deskripsi: $('dsk').value, program: $('prg').value, tahun: $('thn').value,
+    penulis: $('pnl').value, akses: nilai('aks'), status: nilai('sts') };
+  btn.disabled = true;
+  try {
+    if (edit) { data.id = edit.ID; }
+    else {
+      data.mode = nilai('mode');
+      if (data.mode === 'tautan') { data.url = $('url').value.trim(); if (!data.url) throw new Error('Tautan wajib diisi.'); }
+      else {
+        var f = $('fil').files[0];
+        if (!f) throw new Error('Pilih file yang akan diunggah.');
+        if (f.size > R.maksMB * 1048576) throw new Error('Ukuran file melebihi ' + R.maksMB + ' MB. Unggah ke Google Drive lalu pilih opsi tautan.');
+        err.style.color = '#24407f'; err.textContent = 'Mengunggah, mohon tunggu...';
+        data.namaFile = f.name; data.dataBase64 = await bacaBase64(f);
+      }
+    }
+    await api(edit ? 'pustakaUbah' : 'pustakaUnggah', data);
+    tutupForm(); await segarkan();
+  } catch (x) { err.style.color = ''; err.textContent = diagnosa(x); }
+  btn.disabled = false;
+});
+
+$('bUp').onclick = function () { bukaForm(null); };
+$('bBatal').onclick = tutupForm;
+$('ov').addEventListener('click', function (e) { if (e.target === $('ov')) tutupForm(); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') tutupForm(); });
+document.querySelectorAll('input[name=mode]').forEach(function (r) { r.onchange = gantiMode; });
+$('bSemua').onclick = function () { S.kat = ''; gambarKat(); muatDaftar(true); };
+$('bMore').onclick = function () { S.hal++; muatDaftar(false); };
+$('fQ').addEventListener('input', function () { clearTimeout(tmr); var v = this.value.trim(); tmr = setTimeout(function () { S.q = v; muatDaftar(true); }, 350); });
+$('fProg').onchange = function () { S.program = this.value; muatDaftar(true); };
+$('fThn').onchange = function () { S.tahun = this.value; muatDaftar(true); };
+
+(async function () {
+  if (!API_URL || API_URL.indexOf('ISI_ID_DEPLOYMENT') >= 0) { $('list').appendChild(el('div', 'msg', 'Alamat API belum diisi pada config.js.')); return; }
+  try {
+    R = await api('pustakaRingkasan');
+    R.program.forEach(function (p) {
+      [$('fProg'), $('prg')].forEach(function (s) { var o = el('option', '', p); o.value = p; s.appendChild(o); });
+    });
+    R.kategori.forEach(function (k) { var o = el('option', '', k.nama); o.value = k.nama; $('kat').appendChild(o); });
+    $('batas').textContent = 'Maksimal ' + R.maksMB + ' MB. Jenis: PDF, Word, PowerPoint, Excel, CSV, TXT, ZIP, JPG, PNG, MP4.';
+    $('bUp').hidden = !R.bisaUnggah; $('bMasuk').hidden = R.masuk;
+    gambarKat(); await muatDaftar(true);
+  } catch (e) { $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Gagal memuat Pustaka: ' + diagnosa(e))); }
+})();
+</script>
+</body>
+</html>

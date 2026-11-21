@@ -51,6 +51,11 @@ button{border:0;color:#fff;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);cu
 .foot{margin-top:14px;font-size:.78rem;font-weight:700;color:#24407f;opacity:.85}
 .lc{background:none;border:0}
 .lc span{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 32% 26%,#fffbe3,#ffe27a 30%,#ffb020 75%,#c96a00);color:#4a2400;font:800 .9rem 'Baloo 2',sans-serif;border:2px solid #fff;box-shadow:0 5px 12px rgba(10,42,122,.45)}
+svg.ck{width:15px;height:15px;stroke:#18a574;fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px}
+.tag.vl{display:inline-flex;align-items:center;gap:4px;background:#d9f7ec;color:#0b7a55;border:1.5px solid #18c08a}
+.tag.vl svg{width:12px;height:12px;stroke:#0b9a63;fill:none;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.al p.kn{font-weight:800;color:#0a2a7a}.al p.kn a{color:#0b7a55;text-decoration:none;border-bottom:2px solid #18c08a}
+.hint{font-size:.78rem;font-weight:800;color:#a65f00;background:#fff7da;border-radius:12px;padding:8px 12px;margin-bottom:8px}
 @media (max-width:900px){.main{grid-template-columns:1fr}#peta{height:56vh}.panel{max-height:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
@@ -66,7 +71,7 @@ button{border:0;color:#fff;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);cu
     <div class="st" style="--c:#ff5d6c"><b id="sAl">-</b><span>Alumni</span></div>
     <div class="st" style="--c:#18c08a"><b id="sPr">-</b><span>Provinsi</span></div>
     <div class="st" style="--c:#3b82f6"><b id="sKb">-</b><span>Kabupaten/Kota</span></div>
-    <div class="st" style="--c:#ffb020" id="stCt" hidden><b id="sCt">-</b><span>Data contoh</span></div>
+    <div class="st" style="--c:#18c08a" id="stCt"><b id="sCt">-</b><span><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Data valid</span></div>
   </section>
   <section class="bar">
     <select id="fProg" aria-label="Program"><option value="">Semua Program</option></select>
@@ -88,6 +93,7 @@ button{border:0;color:#fff;background:linear-gradient(135deg,#ff5d6c,#ff8a3d);cu
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 var API_URL = (window.TT_CONFIG && TT_CONFIG.API_URL) || '';
+var TOKEN = (function () { try { return sessionStorage.getItem('tt_token'); } catch (_) { return null; } })();
 var $ = function (id) { return document.getElementById(id); };
 function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
 function apiSiap() { return API_URL && API_URL.indexOf('ISI_ID_DEPLOYMENT') < 0; }
@@ -95,7 +101,7 @@ async function api(action, data) {
   var r, t, j;
   try {
     r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: action, data: data || {} }) });
+      body: JSON.stringify({ action: action, token: TOKEN || undefined, data: data || {} }) });
     t = await r.text();
   } catch (e) { throw new Error('Tidak dapat terhubung ke server. Periksa API_URL pada config.js dan koneksi internet.'); }
   try { j = JSON.parse(t); }
@@ -256,10 +262,21 @@ function chipKab() {
 
 function kartu(a, tampilWilayah) {
   var d = el('div', 'al'), b = el('b', '', a.Nama);
-  if (a.Contoh) b.appendChild(el('span', 'tag', 'CONTOH'));
+  if (a.Lengkap) {
+    var v = el('span', 'tag vl'); v.title = 'Data lengkap dan valid';
+    v.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    v.appendChild(document.createTextNode('VALID')); b.appendChild(v);
+  }
   d.appendChild(b); d.appendChild(el('p', '', a.Instansi));
   d.appendChild(el('p', '', a.Program + ' · Angkatan ' + a.Angkatan + ' · ' + a.Tahun));
   if (tampilWilayah) d.appendChild(el('p', '', a.Wilayah));
+  if (a.NIP) d.appendChild(el('p', 'kn', 'NIP: ' + a.NIP));
+  if (a.WA) {
+    var w = el('p', 'kn', 'WhatsApp: ');
+    if (a.WA_link) { var l = el('a', '', a.WA); l.href = a.WA_link; l.target = '_blank'; l.rel = 'noopener noreferrer'; w.appendChild(l); }
+    else w.appendChild(document.createTextNode(a.WA));
+    d.appendChild(w);
+  }
   return d;
 }
 
@@ -285,13 +302,16 @@ async function segarkanPanel() {
     $('pS').textContent = d.total + ' alumni' + (d.total > d.items.length ? ' (menampilkan ' + d.items.length + ' pertama)' : '');
     list.textContent = '';
     d.items.forEach(function (a) { list.appendChild(kartu(a, !S.kab)); });
+    if (d.items.some(function (x) { return (x.NIP || x.WA) && !x.kontakPenuh; })) {
+      list.insertBefore(el('div', 'hint', 'Nomor ditutup sebagian. Masuk sebagai Admin atau Pengajar untuk melihat NIP dan WhatsApp lengkap.'), list.firstChild);
+    }
     if (!d.items.length) list.appendChild(el('div', 'msg', 'Belum ada alumni pada pilihan ini.'));
   } catch (e) { if (my === token) { list.textContent = ''; list.appendChild(el('div', 'msg', 'Gagal memuat data alumni: ' + diagnosa(e))); } }
 }
 
 function isiStat() {
   $('sAl').textContent = ringkas.total; $('sPr').textContent = Object.keys(ringkas.prov).length; $('sKb').textContent = Object.keys(ringkas.kab).length;
-  $('stCt').hidden = !ringkas.contoh; $('sCt').textContent = ringkas.contoh;
+  $('sCt').textContent = ringkas.valid;
 }
 
 async function muatRingkas() {

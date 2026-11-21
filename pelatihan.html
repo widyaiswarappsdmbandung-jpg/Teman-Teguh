@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Teman Teguh - Pelatihan</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
@@ -13,7 +14,8 @@ body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height
 @keyframes fl{to{transform:translateY(-40px)}}
 .top{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.1rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
-.back img{height:38px;border-radius:10px}
+.back img{height:46px;width:auto;border-radius:0;filter:drop-shadow(0 4px 8px rgba(90,40,170,.4));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.back:hover img,.back:focus-visible img{transform:rotate(-7deg) scale(1.12)}
 .top h1{margin:0;font:800 clamp(1.8rem,4.5vw,3rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
 main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:26px 20px 50px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
@@ -30,7 +32,7 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:26px 20p
 </head>
 <body>
 <i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i><i class="bub b4"></i>
-<div class="top"><a class="back" href="index.html"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a><h1>PELATIHAN</h1></div>
+<div class="top"><a class="back" href="index.html"><img src="logo-emblem.png" alt="Logo Teman Teguh"><span>Teman Teguh</span></a><h1>PELATIHAN</h1></div>
 <main>
   <nav class="grid" aria-label="Sub menu Pelatihan">
     <a class="m" href="alumni.html" style="--c:#ff5d6c"><i class="no">1</i>
@@ -40,11 +42,11 @@ main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:26px 20p
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4H9a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H3.5A1.5 1.5 0 0 1 2 16.5z"/><path d="M22 5.5A1.5 1.5 0 0 0 20.5 4H15a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h6.5a1.5 1.5 0 0 0 1.5-1.5z"/></svg></div>
       <div><b>PEMBELAJARAN</b><span>Lihat tugas, unggah tugas, reviu tugas, dan lihat nilai</span></div></a>
     <a class="m" href="pustaka.html?ruang=Coaching" style="--c:#ffb020"><i class="no">3</i>
-      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
-      <div><b>COACHING</b><span>SK Coaching, Proses Coaching, dan Produk Coaching</span></div></a>
-    <a class="m" href="pustaka.html?ruang=Mentoring" style="--c:#8b5cf6"><i class="no">4</i>
       <div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.2a5 5 0 0 1 5 4.8"/></svg></div>
-      <div><b>MENTORING</b><span>SK Mentoring, Output Mentoring, dan Gallery TCM</span></div></a>
+      <div><b>COACHING &amp; MENTORING</b><span>SK, produk, dan social learning</span></div></a>
+    <a class="m" href="pustaka.html?ruang=Profesi" style="--c:#8b5cf6"><i class="no">4</i>
+      <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
+      <div><b>PENGEMBANGAN PROFESI</b><span>Bukti penjaminan mutu, pemagangan, pengabdian masyarakat, tim kerja, dan analisis kebutuhan pelatihan</span></div></a>
   </nav>
 </main>
 </body>

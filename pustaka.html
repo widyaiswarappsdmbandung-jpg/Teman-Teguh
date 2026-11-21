@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Teman Teguh - Pustaka TEGUH</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
@@ -13,7 +14,8 @@ body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height
 @keyframes fl{to{transform:translateY(-40px)}}
 .top{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.1rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
-.back img{height:38px;border-radius:10px}
+.back img{height:46px;width:auto;border-radius:0;filter:drop-shadow(0 4px 8px rgba(90,40,170,.4));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.back:hover img,.back:focus-visible img{transform:rotate(-7deg) scale(1.12)}
 .top h1{margin:0;font:800 clamp(1.6rem,4vw,2.6rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
 main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:16px 20px 40px}
 .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
@@ -60,7 +62,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-sh
 <body>
 <i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i>
 <div class="top">
-  <a class="back" href="index.html"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a>
+  <a class="back" href="index.html"><img src="logo-emblem.png" alt="Logo Teman Teguh"><span>Teman Teguh</span></a>
   <h1>Pustaka TEGUH</h1>
 </div>
 <main>
@@ -70,6 +72,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-sh
     <select id="fProg" aria-label="Program"><option value="">Semua Program</option></select>
     <select id="fThn" aria-label="Tahun"><option value="">Semua Tahun</option></select>
     <button class="btn gold" id="bUp" type="button" hidden>Unggah Bahan</button>
+    <a class="btn abu" id="bGal" href="galeri.html" hidden>GALLERY TCM</a>
     <a class="btn" id="bMasuk" href="index.html" hidden>Masuk untuk mengunggah</a>
   </section>
   <div class="info"><span id="jml"></span><button class="btn sm abu" id="bSemua" type="button" hidden>Tampilkan semua kategori</button></div>
@@ -90,7 +93,7 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:#3b82f6;box-sh
     </div>
     <label for="pnl">Penulis</label><input id="pnl" maxlength="100">
     <label>Akses unduh</label>
-    <div class="sw"><label><input type="radio" name="aks" value="Publik" checked> Publik (semua orang)</label><label><input type="radio" name="aks" value="Peserta"> Peserta (harus masuk)</label></div>
+    <div class="sw" id="aksesBox"></div>
     <label>Status</label>
     <div class="sw"><label><input type="radio" name="sts" value="Terbit" checked> Terbit</label><label><input type="radio" name="sts" value="Draf"> Draf</label></div>
     <div id="sumber">
@@ -112,11 +115,15 @@ function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.cla
 function simpan(k) { try { return sessionStorage.getItem(k); } catch (_) { return null; } }
 var TOKEN = simpan('tt_token');
 var RUANG = (new URLSearchParams(location.search).get('ruang') || 'Pustaka');
-if (['Pustaka', 'Coaching', 'Mentoring'].indexOf(RUANG) < 0) RUANG = 'Pustaka';
-var JUDUL = { Pustaka: 'Pustaka TEGUH', Coaching: 'COACHING', Mentoring: 'MENTORING' }[RUANG];
+if (RUANG === 'Mentoring') RUANG = 'Coaching';
+if (['Pustaka', 'Coaching', 'Profesi'].indexOf(RUANG) < 0) RUANG = 'Pustaka';
+var JUDUL = { Pustaka: 'Pustaka TEGUH', Coaching: 'COACHING & MENTORING', Profesi: 'PENGEMBANGAN PROFESI' }[RUANG];
+var NAMA_ITEM = RUANG === 'Pustaka' ? 'Bahan' : 'Bukti';
 document.title = 'Teman Teguh - ' + JUDUL;
 document.querySelector('.top h1').textContent = JUDUL;
+document.getElementById('bUp').textContent = 'Unggah ' + NAMA_ITEM;
 if (RUANG !== 'Pustaka') document.querySelector('.back').href = 'pelatihan.html';
+var AKSES_LABEL = { Publik: 'Publik (semua orang)', Peserta: 'Peserta (harus masuk)', Pribadi: 'Pribadi (saya, pengajar, dan admin)' };
 
 async function api(action, data) {
   var r, t, j;
@@ -157,12 +164,6 @@ function gambarKat() {
     b.onclick = function () { S.kat = S.kat === k.nama ? '' : k.nama; gambarKat(); muatDaftar(true); };
     w.appendChild(b);
   });
-  if (RUANG === 'Mentoring') {
-    var g = el('a', 'cat'); g.href = 'galeri.html'; g.style.setProperty('--c', '#ec4899'); g.style.textDecoration = 'none';
-    var ik = el('span', 'ic'); ik.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>';
-    g.appendChild(ik); g.appendChild(el('b', '', 'GALLERY TCM')); g.appendChild(el('small', '', 'Foto proses Teaching, Coaching, dan Mentoring'));
-    w.appendChild(g);
-  }
   $('bSemua').hidden = !S.kat;
 }
 
@@ -188,6 +189,7 @@ function kartu(it) {
   if (it.Tahun) m.appendChild(el('span', '', String(it.Tahun)));
   if (it.Sumber === 'File') m.appendChild(el('span', '', ukuran(it.Ukuran_KB)));
   if (it.Akses === 'Peserta') m.appendChild(el('span', 'lk', 'Peserta'));
+  if (it.Akses === 'Pribadi') m.appendChild(el('span', 'lk', 'Pribadi'));
   if (it.Status === 'Draf') m.appendChild(el('span', 'lk', 'Draf'));
   b.appendChild(m);
   var info = [it.Penulis ? 'Penulis: ' + it.Penulis : '', it.Pengunggah ? 'Diunggah: ' + it.Pengunggah : '', tglID(it.Tgl_Unggah), it.Unduhan + ' unduhan'].filter(Boolean).join(' · ');
@@ -239,13 +241,22 @@ async function muatDaftar(baru) {
 
 async function segarkan() { R = await api('pustakaRingkasan', { ruang: RUANG }); gambarKat(); await muatDaftar(true); }
 
+function gambarAkses() {
+  var w = $('aksesBox'); w.textContent = '';
+  (R.aksesBoleh || []).forEach(function (a, i) {
+    var l = el('label'), r = document.createElement('input'); r.type = 'radio'; r.name = 'aks'; r.value = a; if (i === 0) r.checked = true;
+    l.appendChild(r); l.appendChild(document.createTextNode(' ' + AKSES_LABEL[a])); w.appendChild(l);
+  });
+}
+function setAkses(v) { var r = document.querySelector('input[name=aks][value="' + v + '"]'); if (r) r.checked = true; }
+
 function bukaForm(it) {
   edit = it || null; $('err').textContent = '';
-  $('mt').textContent = it ? 'Ubah Bahan' : 'Unggah Bahan';
+  $('mt').textContent = it ? 'Ubah ' + NAMA_ITEM : 'Unggah ' + NAMA_ITEM;
   $('kat').value = it ? it.Kategori : (S.kat || R.kategori[0].nama);
   $('jdl').value = it ? it.Judul : ''; $('dsk').value = it ? (it.Deskripsi || '') : '';
   $('prg').value = it ? (it.Program || '') : ''; $('thn').value = it ? (it.Tahun || '') : ''; $('pnl').value = it ? (it.Penulis || '') : '';
-  document.querySelector('input[name=aks][value=' + (it ? it.Akses : 'Publik') + ']').checked = true;
+  if (it) setAkses(it.Akses); else if (R.aksesBoleh.length) setAkses(R.aksesBoleh[0]);
   document.querySelector('input[name=sts][value=' + (it ? (it.Status === 'Draf' ? 'Draf' : 'Terbit') : 'Terbit') + ']').checked = true;
   $('sumber').hidden = !!it; $('fil').value = ''; $('url').value = '';
   document.querySelector('input[name=mode][value=file]').checked = true; gantiMode();
@@ -304,7 +315,7 @@ $('fThn').onchange = function () { S.tahun = this.value; muatDaftar(true); };
     });
     R.kategori.forEach(function (k) { var o = el('option', '', k.nama); o.value = k.nama; $('kat').appendChild(o); });
     $('batas').textContent = 'Maksimal ' + R.maksMB + ' MB. Jenis: PDF, Word, PowerPoint, Excel, CSV, TXT, ZIP, JPG, PNG, MP4.';
-    $('bUp').hidden = !R.bisaUnggah; $('bMasuk').hidden = R.masuk;
+    $('bUp').hidden = !R.bisaUnggah; $('bMasuk').hidden = R.masuk; $('bGal').hidden = RUANG !== 'Coaching'; gambarAkses();
     gambarKat(); await muatDaftar(true);
   } catch (e) { $('list').textContent = ''; $('list').appendChild(el('div', 'msg', 'Gagal memuat Pustaka: ' + diagnosa(e))); }
 })();

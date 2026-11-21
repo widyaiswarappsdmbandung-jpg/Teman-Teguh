@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Teman Teguh - Gallery TCM</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
@@ -13,7 +14,8 @@ body{margin:0;font-family:'Nunito',system-ui,sans-serif;color:#0a2a7a;min-height
 @keyframes fl{to{transform:translateY(-40px)}}
 .top{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .back{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0a2a7a;font:800 1.1rem 'Baloo 2',sans-serif;background:rgba(255,255,255,.75);backdrop-filter:blur(8px);padding:6px 16px 6px 8px;border-radius:99px;box-shadow:0 8px 20px rgba(20,70,170,.18)}
-.back img{height:38px;border-radius:10px}
+.back img{height:46px;width:auto;border-radius:0;filter:drop-shadow(0 4px 8px rgba(90,40,170,.4));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.back:hover img,.back:focus-visible img{transform:rotate(-7deg) scale(1.12)}
 .top h1{margin:0;font:800 clamp(1.6rem,4vw,2.6rem) 'Baloo 2',sans-serif;text-shadow:0 3px 0 rgba(255,255,255,.7)}
 main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:16px 20px 40px}
 .tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:center}
@@ -55,7 +57,7 @@ textarea{min-height:64px;resize:vertical}
 <body>
 <i class="bub b1"></i><i class="bub b2"></i><i class="bub b3"></i>
 <div class="top">
-  <a class="back" href="pustaka.html?ruang=Mentoring"><img src="logo-teman-teguh.jpg" alt="Teman Teguh"><span>Teman Teguh</span></a>
+  <a class="back" href="pustaka.html?ruang=Coaching"><img src="logo-emblem.png" alt="Logo Teman Teguh"><span>Teman Teguh</span></a>
   <h1>GALLERY TCM</h1>
 </div>
 <main>
